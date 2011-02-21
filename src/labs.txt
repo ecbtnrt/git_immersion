@@ -1,57 +1,54 @@
 ----------------------------------------------------------------------
-h1. Setup
+h1. 配置
 
-h3. Goals
+h3. 目的
 
-* To setup git so that it is ready for work.
+* 配置git，准备工作
 
-h2. Setup Name and Email
+h2. 设置名字和信箱
 
-p. If you have never used git before, you need to do some setup first.
-Run the following commands so that git knows your name and email.  If
-you have git already setup, you can skip down to the line ending
-section.
+p. 如果你之前从没有用过git，那你先需要做一些配置。运行下面的命令，把你
+的名字和信箱告诉git。如果你的git已经配置好了，可以直接跳到这节的末尾。
 
-execute:
-git config --global user.name "Your Name"
+执行：
+git config --global user.name "你的名字"
 git config --global user.email "your_email@whatever.com"
 
-h2. Setup Line Ending Preferences
+h2. 设置换行符参数
 
-Also, for Unix/Mac users:
+对于Unix/Mac用户：
 
-execute:
+执行：
 git config --global core.autocrlf input
 git config --global core.safecrlf true
 
-And for Windows users:
+对于Windows用户：
 
-execute:
+执行：
 git config --global core.autocrlf true
 git config --global core.safecrlf true
 
 ----------------------------------------------------------------------
-h1. More Setup
+h1. 更多的设置
 
-h3. Goals
+h3. 目的
 
-* Get the tutorial materials setup and ready to run.
+* 获取教程所需的的配置资料，准备执行教程。
 
-h2. Get the Tutorial package.
+h2. 获取教程资料包。
 
-p. Git the tutorial package from either:
+p. 从任意途径获取教程资料包：
 
-* The memory sticks provided in the tutorial
-* The URL "http://onestepback.org/download/git_tutorial.zip":http://onestepback.org/download/git_tutorial.zip
+* 教程提供的记忆棒里
+* 访问网址 "http://onestepback.org/download/git_tutorial.zip":http://onestepback.org/download/git_tutorial.zip
 
-h2. Unzip the tutorial
+h2. 解压教程
 
-p. The tutorial package should have a main diretory "git_tutorial"
-with three sub-directories:
+p. 资料包里应该含有主目录”git_tutorial“和三个子目录：
 
-* html -- These html files.  Point your browser to html/index.html
-* work -- An empty working directory.  Create your repos in here.
-* repos -- Prepackaged Git repositories so you can jump into the tutorial at any point.  If you get stuck, just copy the desired lab into your working directory.
+* html -- html文件。用你的浏览器打开html/index.html
+* work -- 空的工作目录，在这里创建你的库。
+* repos -- 已经准备好的Git库，这样你可以跳到教程的任意节。如果你把你的库搞乱了，只要把对应节的实验目录考到你的工作目录就行。
 
 ----------------------------------------------------------------------
 h1. Create a Project
