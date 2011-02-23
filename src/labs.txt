@@ -18,13 +18,13 @@ h2. 设置换行符参数
 
 对于Unix/Mac用户：
 
-执行：
+execute:
 git config --global core.autocrlf input
 git config --global core.safecrlf true
 
 对于Windows用户：
 
-执行：
+execute:
 git config --global core.autocrlf true
 git config --global core.safecrlf true
 
@@ -51,17 +51,16 @@ p. 资料包里应该含有主目录”git_tutorial“和三个子目录：
 * repos -- 已经准备好的Git库，这样你可以跳到教程的任意节。如果你把你的库搞乱了，只要把对应节的实验目录考到你的工作目录就行。
 
 ----------------------------------------------------------------------
-h1. Create a Project
+h1. 创建一个项目
 
-h3. Goals
+h3. 目的
 
-* Learn how to create a git repository from scratch.
+* 学习如何从头创建一个git库。
 
-h2. Create a "Hello, World" program
+h2. 创建一个“Hello, World”程序
 
-p. Starting in the empty working directory, create an empty directory
-named "hello", then create a file named @hello.rb@ with the contents
-below.
+p. 从一个空目录开始，创建一个名叫“hello”的目录，然后创建名叫 @hello.rb@ 的文件，内
+容如下。
 
 Execute:
 mkdir hello
@@ -71,10 +70,9 @@ File: hello.rb
 puts "Hello, World"
 EOF
 
-h2. Create the Repository
+h2. 创建库
 
-p. You now have a directory with a single file.  To create a git
-repository from that directory, run the git init command.
+p. 你现在有了一个只含有一个文件的目录。为了将这个目录变为git库，执行git init命令。
 
 Execute:
 git init
@@ -86,9 +84,9 @@ Output:
 =init
 EOF
 
-h2. Add the program to the repository
+h2. 将程序添加到库
 
-Now let's add the "Hello, World" program to the repository.
+现在把“Hello, World”程序加入到库里。
 
 Execute:
 git add hello.rb
@@ -96,7 +94,7 @@ git add hello.rb
 git commit -m "First Commit"
 =commit
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =add
@@ -104,87 +102,79 @@ Output:
 EOF
 
 ----------------------------------------------------------------------
-h1. Checking Status
+h1. 检查状态
 
-h3. Goals
+h3. 目的
 
-* Learn how to check the status of the repository
+* 学习如何检查库的状态
 
-h2. Check the status of the repository
+h2. 检查库的状态
 
-p. Use the @git status@ command to check the current status of the
-repository.
+p. 用命令 @git status@ 来检查库的当前状态。
 
 Execute:
 git status
 =status
 
-p. You should see
+p. 你应该看到
 
 Output:
 =status
 EOF
 
-p. The status command reports that there is nothing to commit.  This
-means that the repository has all the current state of the working
-directory.  There are no outstanding changes to record.
+p. 这个命令报告库里没有需要提交的修改。也就是说工作目录的当前状态和库里的状态是一样的。
+没有尚未提交的修改。
 
-p. We will use the @git status@ command to continue to monitor the
-state between the repository and the working directory.
+p. 我们将持续使用 @git status@ 命令来监控工作目录和库之间的状态。
 
 ----------------------------------------------------------------------
-h1. Making Changes
+h1. 做些改动
 
-h3. Goals
+h3. 目的
 
-* Learn how to monitor the state of the working directory
+* 学习如何监控工作目录的状态
 
-h2. Change the "Hello, World" program.
+h2. 改变“Hello, World”程序。
 
-p. It's time to change our hello program to take an argument from the
-command line.  Change the file to be:
+p. 现在是修改hello程序的时候了，让它从命令行接受一个参数。把文件改为：
 
 File: hello.rb
 puts "Hello, #{ARGV.first}!"
 EOF
 
-h2. Check the status
+h2. 检查状态
 
-p. Now check the status of the working directory.
+p. 现在检查工作目录的状态。
 
 Execute:
 !git status
 =status
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =status
 EOF
 
-p. The first thing to notice is that git knows that the @hello.rb@
-file has been modified, but git has not yet been notified of these
-changes.
+p. 首先注意到，git发现 @hello.rb@ 文件被改动了，但是git还没有接受这些改动。
 
-p. Also notice that the status message gives you hints about what you
-need to do next.  If you want to add these changes to the repository,
-then use the @git add@ command.  Otherwise the @git checkout@ command
-can be used to discard the changes.
+p. 然后注意到，状态消息也提示了一些你之后要做的事情。如果你想把这些改动加入到库里，就执行
+@git add@ 命令。另一方面 @git checkout@ 命令可以放弃这些改动。
 
-h2. Up Next
+h2. 下一页
 
-p. Let's stage the change.
+p. 来让我们跟踪改动吧。
 
 ----------------------------------------------------------------------
-h1. Staging Changes
+h1. 跟踪改动
 
-h3. Goals
+h3. 目的
 
-* Learn how to stage changes for later commits
+* 学习如何跟踪改动，以便之后的提交
 
-h2. Add Changes
+h2. 加入改动
 
-p. Now tell git to stage the changes.  Check the status
+p. 现在告诉git来跟踪改动。然后检查状态
 
 Execute:
 git add hello.rb
@@ -192,39 +182,31 @@ git add hello.rb
 git status
 =status
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =add
 =status
 EOF
 
-p. The change to the @hello.rb@ file has been staged.  This means that
-git now knows about the change, but the change hasn't been
-_permanently_ recorded in the repository yet.  The next commit
-operation will include the staged changes.
+p. 文件 @hello.rb@ 的改动已经被跟踪。这意味着git现在知道这些改动，但是这些改动还没有 _持久_
+记录到库里。之后的提交操作将记录已经跟踪的改动。
 
-p. If you decide you _don't_ want to commit that change after all, the
-status command reminds you that the @git reset@ command can be used to
-unstage that change.
+p. 如果你决定 _不打算_ 提交这些改动，status命令会提示你用 @git reset@ 命令来取消对这些改动
+的跟踪。
 
 ----------------------------------------------------------------------
-h1. Staging and Committing
+h1. 跟踪并提交
 
-p. A separate staging step in git is in line with the philosophy of
-getting out of the way until you need to deal with source control.
-You can continue to make changes to your working directory, and then
-at the point you want to interact with source control, git allows you
-to record your changes in small commits that record exactly what you
-did.
+p. git里分离出跟踪这个步骤的原因，源于以下原则：除非你需要对源码做控制，否则不和版本控制打交道。
+你可以一直在工作目录上做改动，然后在某个时刻你想对源码做控制，git就让你通过诸多准确记录了你的改
+动的小规模提交，来记录你所有的变动。
 
-p. For example, suppose you edited three files (@a.rb@, @b.rb@, and
-@c.rb@).  Now you want to commit all the changes, but you want the
-changes in @a.rb@ and @b.rb@ to be a single commit, while the changes
-to @c.rb@ are not logically related to the first two files and should
-be a separate commit.
+p. 举个例子，假设你改了三个文件（ @a.rb@ ， @b.rb@ ，和 @c.rb@ ）。现在你想提交所有的改动，
+但是你想将 @a.rb@ 和 @b.rb@ 的改动一起提交，而 @c.rb@ 里的改动和前两个文件的改动没有逻辑关系，
+因此需要分别提交。
 
-p. You could do the following:
+p. 你可以照着下面的做法：
 
 pre(instructions).
 git add a.rb
@@ -235,8 +217,7 @@ pre(instructions).
 git add c.rb
 git commit -m "Unrelated change to c"
 
-p. By separating staging and committing, you have the ability to
-easily fine tune what goes into each commit.
+p. 将跟踪和提交分离，你就可以更加精细的调整每次提交的内容。
 
 ----------------------------------------------------------------------
 h1. Commiting Changes
