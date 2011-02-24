@@ -220,41 +220,37 @@ git commit -m "Unrelated change to c"
 p. 将跟踪和提交分离，你就可以更加精细的调整每次提交的内容。
 
 ----------------------------------------------------------------------
-h1. Commiting Changes
+h1. 提交修改
 
-h3. Goals
+h3. 目的
 
-* Learn how to commit changes to the repository
+* 学习如何将修改提交到库里
 
-h2. Commit the change
+h2. 提交修改
 
-p. Ok, enough about staging.  Let's commit what we have staged to the
-repository.
+p. 好了，关于跟踪已经讲的够多了。让我们把正在跟踪的修改提交到库里吧。
 
-p. When you used @git commit@ previously to commit the initial version
-of the @hello.rb@ file to the repository, you included the @-m@ flag
-that gave a comment on the command line.  The commit command will
-allow you to interactively edit a comment for the commit.  Let's try
-that now.
+p. 当你之前使用 @git commit@ 命令讲初始版本的 @hello.rb@ 文件提交入库时，你
+在命令行上使用了 @-m@ 标志来加入一段对提交的注释。commit命令还允许以交互的形式
+对提交进行注释。让我们现在来试试。
 
-p. If you omit the @-m@ flag from the command line, git will pop you
-into the editor of your choice.  The editor is chosen from the
-following list (in priority order):
+p. 如果你在命令行上忽略 @-m@ 标识，git将会弹出你选择的编辑器。编辑器将在下面的
+列表中选择（按照顺序）：
 
-* GIT_EDITOR environment variable
-* core.editor configuration setting
-* VISUAL environment variable
-* EDITOR environment variable
+* GIT_EDITOR环境变量
+* 设置文件中的core.editor配置
+* VISUAL环境变量
+* EDITOR环境变量
 
-p. I have the EDITOR variable set to @emacsclient@.
+p. 我把我的EDITOR环境变量设为了 @emacsclient@ 。
 
-p. So commit now and check the status.
+p. 所以现在提交并且检查状态。
 
 Execute:
 -git commit
 +git commit -m "Using ARGV"
 
-p. You should see the following in your editor:
+p. 你应该在你的编辑器看到下面的内容：
 
 Output:
 |
@@ -268,8 +264,7 @@ Output:
 #
 EOF
 
-p. On the first line, enter the comment: "Using ARGV".  Save the file
-and exit the editor.  You should see ...
+p. 在第一行，输入注释：“Using ARGV”。保存文件并退出。你应该看到……
 
 Output:
 git commit
@@ -278,49 +273,43 @@ Waiting for Emacs...
  1 files changed, 1 insertions(+), 1 deletions(-)
 EOF
 
-p. The "Waiting for Emacs..." line comes from the @emacsclient@
-program which sends the file to a running emacs program and waits for
-the file to be closed.  The rest of the output is the standard commit
-messages.
+p. “Waiting for Emacs...”这行输出来自 @emacsclient@ 程序，这个程序将文件发到
+正在运行的 emacs 程序并且等待文件关闭。其他的输出是git标准的提交信息。
 
-h2. Check the status
+h2. 检查状态
 
-p. Finally let's check the status again.
+p. 最后，让我们再次检查状态。
 
 Execute:
 !git status
 =status
 
-You should see ...
+你应该看到……
 
 Output:
 =status
 EOF
 
-p. The working directory is clean and ready for you to continue.
+p. 工作目录已经没有未记录的修改，现在可以继续后面的工作了。
 
 ----------------------------------------------------------------------
-h1. Changes, not Files
+h1. 改变，而不仅仅是文件
 
-h3. Goals
+h3. 目的
 
-* Learn that git works with changes, not files.
+* 学习git是根据改变在工作，而不是文件。
 
-p. Most source control systems work with files.  You add a file to
-source control and the system will track changes to the file from that
-point on.
+p. 大部分源码控制系统都是根据文件在工作。如果你把一个文件加入到源码控制后，系统将跟
+踪这个时刻后文件的所有改动。
 
-p. Git focuses on the changes to a file rather than the file itself.
-When you say @git add file@, you are not telling git to add the file
-to the repository.  Rather you are saying that git should make note of
-the current state of that file to be commited later.
+p. 比起文件本身，git更关注改动而不是文件。当你执行 @git add file@ ，你并不是让
+git把文件加入到库里，而是让git记录当前状态的文件，以便之后的提交。
 
-p. We will attempt to explore that difference in this lab.
+p. 我们在这节里来试试这个不同之处。
 
-h2. First Change: Allow a default name
+h2. 第一次修改：支持默认名字
 
-p. Change the "Hello, World" program to have a default value if a
-command line argument is not supplied.
+p. 修改“Hello, World”程序，如果命令行没有带参数，就使用一个默认值。
 
 File: hello.rb
 name = ARGV.first || "World"
@@ -328,16 +317,16 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. Add this Change
+h2. 加入这些修改
 
-p. Now add this change to the git's staging area.
+p. 现在将这些修改加入到跟踪区域。
 
 Execute:
 git add hello.rb
 
-h2. Second change: Add a comment
+h2. 第二个修改：加入注释
 
-p. Now add a comment to the "Hello, World" program.
+p. 现在将一段注释加入“Hello, World”程序。
 
 File: hello.rb
 # Default is "World"
@@ -346,29 +335,26 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. Check the current status
+h2. 检查当前状态
 
 Execute:
 !git status
 =status
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =status
 EOF
 
-p. Notice how @hello.rb@ is listed twice in the status.  The first
-change (adding a default) is staged and is ready to be committed.  The
-second change (adding a comment) is unstaged.  If you were to commit
-right now, the comment would not be saved in the repository.
+p. 注意 @hello.rb@ 是怎样在状态里被列出两次的。第一次改动（加入默认值）已经被跟踪
+等待提交。第二次改动（加入注释）则没有被跟踪。如果你现在提交，注释将不会保存到库里。
 
-p. Let's try that.
+p. 让我们试试。
 
-h2. Committing
+h2. 提交
 
-p. Commit the staged change (the default value), and then recheck the
-status.
+p. 提交被跟踪的修改（增加默认值），然后再检查状态。
 
 Execute:
 git commit -m "Added a default value"
@@ -376,45 +362,39 @@ git commit -m "Added a default value"
 git status
 =status2
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =commit
 =status2
 EOF
 
-p. The status command is telling you that @hello.rb@ has unrecorded changes,
-but is no longer in the staging area.
+p. status命令告诉你 @hello.rb@ 文件还有未记录的修改，但这个修改不在跟踪环境里。
 
-h2. Add the Second Change
+h2. 加入第二次修改
 
-p. Now add the second change to staging area, then run git status.
+p. 现在将第二次修改加入跟踪区域，之后执行git status。
 
 Execute:
 git add .
 !git status
 =status3
 
-p(note). *Note:* We used the current directory ('.') as the
-file to add.  This is a really convenient shortcut for adding in all
-the changes to the files in the current directory and below.  But
-since it adds everything, it is a _really_ good idea to check the status
-before doing an <tt>add .</tt>, just to make sure you don't add any
-file that is not intended.
+p(note). *注意:* 我们使用当前路径（‘.’）做为加入的文件。这个确实只是一个加入当前目录及
+子目录里所有改动的文件的捷径。不过因为这个会把所有东西都加进来，所以 _最好_ 在执行<tt>add .</tt>
+前检查一下状态，确认都是想跟踪的文件后再执行。
 
-p(note). I wanted you to see the "add ." trick, but we will
-continue to add explicit files in the rest of this tutorial just to be
-safe.
+p(note). 我想让你知道“add .”只是个技巧。不过教程后面为了保险，都会明确指定增加的文件。
 
-p. You should see ...
+p. 你将看到……
 
 Output:
 =status3
 EOF
 
-p. Now the second change has been staged and is ready to commit.
+p. 现在已经跟踪了第二个改动，准备提交。
 
-h2. Commit the Second Change
+h2. 提交第二个改动
 
 Execute:
 git commit -m "Added a comment"
