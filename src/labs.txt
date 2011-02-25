@@ -561,32 +561,29 @@ p. 来切换到一个特殊的分支。
 p. 而且，我经常把 @git@ 误拼成 @get@ or @got@ ，所以我干脆把后两个定义为 @git@ 的别名。
 
 ----------------------------------------------------------------------
-h1. Getting Old Versions
+h1. 取得旧版本
 
-h3. Goals
+h3. 目的
 
-* Learn how to checkout any previous snapshot into the working directory.
+* 学习如何将之前的快照签入到工作目录。
 
-p. Going back in history is very easy.  The checkout command will copy
-any snapshot from the repository to the working directory.
+p. 其实很容易就可以回到过去。命令checkout可以把库里任意时刻的快照拷贝到工作目录。
 
-h2. Get the hashes for previous versions
+h2. 取得之前版本的hash值
 
 Execute:
 git hist
 =log
 
-p(note). *Note:* You did remember to define @hist@ in your
-@.gitconfig@ file, right?  If not, review the lab on aliases.
+p(note). *注意：* 你已经在 @.gitconfig@ 文件里定义了 @hist@，对吧？如果没有的
+话，复习“别名”那节。
 
 Output:
 =log
 EOF
 
-p. Examine the log output and find the hash for the first commit.  It
-should be the last line of the @git hist@ output.  Use that hash code
-(the first 7 characters are enough) in the command below.  Then check
-the contents of the hello.rb file.
+p. 检查log的输出，找到第一次提交的hash值。它应该是 @git hist@ 输出的最后一行。把
+这个值（前7个字符就足够了）用在下面的命令里。然后检查hello.rb文件的内容。
 
 Set: hash=hash_for("First Commit")
 Execute:
@@ -595,29 +592,26 @@ git checkout <hash>
 cat hello.rb
 =cat
 
-p(note). *Note:* The commands given here are Unix commands and
-work on both Mac and Linux boxes.  Unfortunately, Windows users will
-have to translate to their native commands.
+p(note). *注意：* 这里给出的命令是Unix风格的命令，适合Mac和Linux系统。不过，Windows
+用户需要转换成自己使用的命令。
 
-p(note). *Note:* Many commands depend on the hash values in the
-repository.  Since your hash values will vary from mine, whenever you
-see something like &lt;hash&gt; or &lt;treehash&gt; in the command,
-substitute in the proper hash value for your repository.
+p(note). *注意：* 很多命令都依赖库里的hash值。由于你库里的hash值和教程里有很大不
+同，所有命令里类似&lt;hash&gt;或者&lt;treehash&gt;的地方，都需要你替换成你库里
+对应的hash值。
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =checkout
 =cat
 EOF
 
-p. The output of the @checkout@ command explains the situation pretty
-well.  Older versions of git will complain about not being on a local
-branch.  In any case, don't worry about that for now.
+p. @checkout@ 命令的输出完美展示了当前的状态。如果使用老版本的git，可能会抱怨没有一个本地分
+支。不过，现在不需要担心这个。
 
-p. Notice the contents of the hello.rb file are the original contents.
+p. 注意hello.rb文件的内容已经是老黄历了。
 
-h2. Return the latest version in the master branch
+h2. 返回主分支的最新版本
 
 Execute:
 git checkout master
@@ -625,15 +619,14 @@ git checkout master
 cat hello.rb
 =cat2
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =checkout2
 =cat2
 EOF
 
-p. 'master' is the name of the default branch.  By checking out a branch
-by name, you go to the lastest version of that branch.
+p. ‘master’是默认分支的名字。用名字签出一个分支，将会得到这个分支的最新版本。
 
 ----------------------------------------------------------------------
 h1. Tagging versions
