@@ -489,18 +489,18 @@ p. 在浏览log历史时，<code>gitx</code> （在Mac电脑上）和 <code>gitk
 都很好用。
 
 ----------------------------------------------------------------------
-h1. Aliases
+h1. 别名
 
-h3. Goals
+h3. 目的
 
-* Learn how to setup aliases and shortcuts for git commands
+* 学习如何给git命令起别名
 
-h2. Common Aliases
+h2. 一般的别名
 
-p. +git status+, +git add+, +git commit+, and +git checkout+ are such
-common commands that it is useful to have abbreviations for them.
+p. +git status+ ， +git add+ ， +git commit+ ，和 +git checkout+ 这些命令太
+常用了，缩写一下会很有帮助。
 
-p. Add the following to the .gitconfig file in your $HOME directory.
+p. 把下面的内容加到你$HOME目录下的.gitconfig文件。
 
 file: .gitconfig
 [alias]
@@ -513,37 +513,30 @@ file: .gitconfig
   dump = cat-file -p
 EOF
 
-p. We've covered checkout, commit and status already.  And we just
-covered the @log@ command in the previous lab. Now you can type @git
-co@ wherever you used to have to type @git checkout@.  Likewise with
-@git st@ for @git status@ and @git ci@ for @git commit@.  And best of
-all, @git hist@ will allow you to avoid the really long @log@ command.
+p. 这些配置已经覆盖了签出，提交和状态显示命令。而之前的一个配置覆盖了 @log@ 命令。
+现在，你可以在任何时候用 @git co@ 来代替 @git checkout@ ，同样的，@git st@ 代
+替 @git status@， @git ci@ 代替 @git commit@ 。最棒的是， @git hist@ 可以
+代替之前 @log@ 那一长串的命令。
 
-p. Go ahead and give the new commands a try.
+p. 接下来试着添加个新命令。
 
-h2. Define the @hist@ alias in your @.gitconfig@ file
+h2. 在 @.gitconfig@ 里定义的别名 @hist@ 
 
-p. For the most part, I will continue to type out the full command in
-these instructions.  The only exception is that I will use the @hist@
-alias defined above anytime we need to see the git log output.  Make
-sure you have a @hist@ alias setup in your @.gitconfig@ file before
-continuing if you wish to follow along.
+p. 这个教程里大部分时候我会继续使用完整的命令。唯一的例外是 @hist@， 我会用这个别名
+来代替所有需要查看git log的情况。如果你想继续的话，确认你的 @.gitconfig@ 文件里有
+@hist@ 别名的定义。
 
-h2. @Type@ and @Dump@
+h2. @Type@ 和 @Dump@
 
-p. We've added a few aliases for commands we haven't covered yet. The
-@git branch@ command will be coming up soon.  And the @git cat-file@
-command is useful for exploring git, which we will see in a little
-while.
+p. 我们来加几条还没有涉及到的命令的别名。命令 @git branch@ 很快就会用到。而 @git cat-file@
+在浏览git库时很有用，一会儿也会用到。
 
-h2. Shell Aliases (Optional)
+h2. Shell里的别名（可选）
 
-p(note). *Note:* This section is for folks running a posix-like shell.
-Windows users and other non-posix shell users can feel free to skip to
-the next lab.
+p(note). *注意：* 这节是为了那些使用posix风格的shell的人写的。Windows用户和其他
+非posix风格shell的用户可以忽略这些内容跳到下一节。
 
-p. If your shell supports aliases or shortcuts, then you can add
-aliases at that level too.  Here are the ones I use:
+p. 如果你的shell支持别名活着快捷方式，那你也可以通过shell来加别名。下面是我自己用的一些别名：
 
 file: .profile
 alias gs='git status '
@@ -559,15 +552,13 @@ alias got='git '
 alias get='git '
 EOF
 
-p. The @go@ abbreviation for @git checkout@ is particularly nice.  It
-allows me to type:
+p. 缩写 @go@ 非常完美的代表了 @git checkout@ 。我可以这样做：
 
 pre(instructions). go <branch>
 
-p. to checkout a particular branch.
+p. 来切换到一个特殊的分支。
 
-p. And yes, I do mistype @git@ as @get@ or @got@ often enough to
-create aliases for them.
+p. 而且，我经常把 @git@ 误拼成 @get@ or @got@ ，所以我干脆把后两个定义为 @git@ 的别名。
 
 ----------------------------------------------------------------------
 h1. Getting Old Versions
