@@ -400,47 +400,43 @@ Execute:
 git commit -m "Added a comment"
 
 ----------------------------------------------------------------------
-h1. History
+h1. 历史
 
-h3. Goals
+h3. 目的
 
-* Learn how to view the history of the project.
+* 学习如何查看项目的历史。
 
-p. Getting a listing of what changes have been made is the function of
-the @git log@ command.
+p. 命令 @git log@ 用来取得项目之前所有修改的列表。
 
 Execute:
 git log
 =log
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =log
 EOF
 
-p. Here is a list of all four commits that we have made to the
-repository so far.
+p. 这里列出了我们之前对库做的四次修改。
 
-h2. One Line Histories
+h2. 单行历史
 
-p. You have a great deal of control over exactly what the @log@ command
-displays.  I like the one line format:
+p. 你可以用很多参数精确控制 @log@ 命令的显示方式。我喜欢单行格式：
 
 Execute:
 git log --pretty=oneline
 =oneline
 
-p. You should see ...
+p. 你应该看到……
 
 Output:
 =oneline
 EOF
 
-h2. Controlling Which Entries are Displayed
+h2. 控制显示哪些项
 
-p. There are a lot of options for selecting which entries are
-displayed in the log.  Play around with the following options:
+p. 有很多的选项可以指定哪些信息项显示在log里。让我们来试试下面这些选项：
 
 pre(instructions).
 git log --pretty=oneline --max-count=2
@@ -449,49 +445,48 @@ git log --pretty=oneline --until='5 minutes ago'
 git log --pretty=oneline --author=<your name>
 git log --pretty=oneline --all
 
-p. See man git-log for all the details.
+p. 查看man git-log来获得所有细节。
 
-h2. Getting Fancy
+h2. 来点花活儿
 
-p. Here's what I use to review the changes made in the last week.
-I'll add @--author=jim@ if I only want to see changes I made.
+p. 下面是我用来检查上周都提交了哪些修改的命令。如果我想查某个人的提交，加入 @--author=jim@
+就行了。
 
 pre(instructions).
 git log --all --pretty=format:"%h %cd %s (%an)" --since='7 days ago'
 
-h2. The Ultimate Log Format
+h2. 白金版log格式
 
-p. Over time, I've decided that I like the following log format for
-most of my work.
+p. 假以时日，我觉得我大部份工作中更喜欢下面的log格式。
 
 Execute:
 git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
 =ultimate
 
-It looks like this:
+看起来像这样：
 
 Output:
 =ultimate
 EOF
 
-p. Let's look at it in detail:
+p. 让我们来看看细节：
 
-* @--pretty="..."@ defines the format of the output.
-* @%h@ is the abbreviated hash of the commit
-* @%d@ are any decorations on that commit (e.g. branch heads or tags)
-* @%ad@ is the author date
-* @%s@ is the comment
-* @%an@ is the author name
-* @--graph@ informs git to display the commit tree in an ASCII graph layout
-* @--date=short@ keeps the date format nice and short
+* @--pretty="..."@ 定义了输出格式。
+* @%h@ 代表提交的精简hash码
+* @%d@ 这个提交的一些修饰信息（比如，分支顶或者tag）
+* @%ad@ 作者提交的日期
+* @%s@ 提交时的注释
+* @%an@ 提交人的名字
+* @--graph@ 让git用字符图的方式显示提交树
+* @--date=short@ 显示简短的日期格式
 
-p. This is a lot to type every time you want to see the log.
-Fortunately we will learn about git aliases in the next lab.
+p. 不过，要是用这种方式看log，每次要输入的命令太长了。好在我们将在下节学习
+如何使用别名来缩短git命令。
 
-h2. Other Tools
+h2. 其他工具
 
-p. Both <code>gitx</code> (for Macs) and <code>gitk</code> (any
-platform) are useful in exploring log history.
+p. 在浏览log历史时，<code>gitx</code> （在Mac电脑上）和 <code>gitk</code> （任何平台）
+都很好用。
 
 ----------------------------------------------------------------------
 h1. Aliases
