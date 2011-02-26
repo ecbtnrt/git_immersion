@@ -629,32 +629,29 @@ EOF
 p. ‘master’是默认分支的名字。用名字签出一个分支，将会得到这个分支的最新版本。
 
 ----------------------------------------------------------------------
-h1. Tagging versions
+h1. 给版本打标签
 
-h3. Goals
+h3. 目的
 
-* Learn how to tag commits with names for future reference
+* 学习如何提交一个命名标签，以便今后可以用标签来引用某个版本
 
-p. Let's call the current version of the hello program version 1 (v1).
+p. 让我们把hello程序的当前版本起名叫版本1（v1）。
 
-h2. Tagging version 1
+h2. 给版本1打标签
 
 Execute:
 git tag v1
 =tag
 
-p. Now you can refer to the current version of the program as v1.
+p. 现在你可以通过v1这个标签来引用当前版本了。
 
-h2. Tagging Previous Versions
+h2. 给以前的版本打标签
 
-p. Let's tag the version immediately prior to the current version
-v1-beta.  First we need to checkout the previous version.  Rather than
-lookup up the hash, we will use the @^@ notation to indicate "the parent
-of v1".
+p. 让我们给当前版本之前的一个版本打上v1-beta的标签。首先我们需要签出上一个版本。除了
+去查找hash值，我们这回使用 @^@ 符号来表示“v1的父版本”。
 
-p(note). If the @v1@^ notation gives you any trouble, you can also try
-@v1~1@, which will reference the same version.  This notation means 
-"the first ancestor of v1".
+p(note). 如果 @v1@^ 符号有问题，你可以试试 @v1~1@ ，这个和前面的符号指代同样的版本。
+这个符号表示“v1之前的第一个历史记录”。
 
 Execute:
 git checkout v1^
@@ -667,15 +664,15 @@ Output:
 =cat
 EOF
 
-p. See, this is the version with the default value _before_ we added
-the comment.  Let's make this v1-beta.
+p. 看，这个含有默认值的版本就是我们加入注释 _之前_ 的版本。现在给这个打上v1-beta
+的标签。
 
 Execute:
 git tag v1-beta
 
-h2. Checking Out by Tag Name
+h2. 通过标签名来签出
 
-p. Now try going back and forth between the two tagged versions.
+p. 现在让我们在两个打了标签的版本间来回切换。
 
 Execute:
 git checkout v1
@@ -688,9 +685,9 @@ Output:
 =cov1beta
 EOF
 
-h2. Viewing Tags using the @tag@ command
+h2. 使用 @tag@ 命令查看标签
 
-p. You can see what tags are available using the @git tag@ command.
+p. 你可以用命令 @git tag@ 查看有哪些可用标签。
 
 Execute:
 git tag
@@ -700,9 +697,9 @@ Output:
 =tag2
 EOF
 
-h2. Viewing Tags in the Logs
+h2. 在日志里浏览标签
 
-p. You can also check for tags in the log.
+p. 你也可以在日志里查看标签。
 
 Execute:
 git hist master --all
@@ -712,9 +709,8 @@ Output:
 =hist
 EOF
 
-p. You can see both tags (@v1@ and @v1-beta@) listed in the log
-output, along with the branch name (@master@).  Also @HEAD@ shows you
-the currently checked out commit (which is @v1-beta@ at the moment).
+p. 你可以看到两个标签（ @v1@ 和 @v1-beta@ ），还有分支名（ @master@ ），都列在
+日志的输出里。而且 @HEAD@ 显示了当前签出的提交（此刻就是 @v1-beta@ ）。
 
 ----------------------------------------------------------------------
 h1. Undoing Local Changes (before staging)
