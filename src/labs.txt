@@ -713,26 +713,25 @@ p. 你可以看到两个标签（ @v1@ 和 @v1-beta@ ），还有分支名（ @m
 日志的输出里。而且 @HEAD@ 显示了当前签出的提交（此刻就是 @v1-beta@ ）。
 
 ----------------------------------------------------------------------
-h1. Undoing Local Changes (before staging)
+h1. （在跟踪前）撤销本地的修改
 
-h3. Goals
+h3. 目的
 
-* Learn how to revert changes in the working directory
+* 学习如何还原工作目录中的修改
 
-h2. Checkout Master
+h2. 签出主分支
 
-p. Make sure you are on the lastest commit in master before proceeding.
+p. 在继续工作前，确认你签出了主分支的最新修改。
 
 Execute:
 git checkout master
 
-h2. Change hello.rb
+h2. 修改hello.rb
 
-p. Sometimes you have modified a file in your local working directory
-and you wish to just revert to what has already been committed.  The
-checkout command will handle that.
+p. 有时，你在本地工作目录修改了文件，但是又希望能回到提交时的内容。checkout命令
+可以做到这点。
 
-Change hello.rb to have a bad comment.
+修改hello.rb，加入一条错误注释。
 
 File: hello.rb
 # This is a bad comment.  We want to revert it.
@@ -741,9 +740,9 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. Check the Status
+h2. 检查状态
 
-p. First, check the status of the working directory.
+p. 首先，检查工作目录的状态。
 
 Execute:
 !git status
@@ -753,13 +752,11 @@ Output:
 =status
 EOF
 
-p. We see that the @hello.rb@ file has been modified, but hasn't been
-staged yet.
+p. 我们看到 @hello.rb@ 文件已经修改了，但还没被跟踪。
 
-h2. Revert the changes in the working directory
+h2. 在工作目录中取消修改
 
-p. Use the @checkout@ command to checkout the repository's version of
-the @hello.rb@ file.
+p. 使用 @checkout@ 命令来签出库中版本的 @hello.rb@ 文件。
 
 Execute:
 git checkout hello.rb
@@ -775,20 +772,18 @@ Output:
 =cat
 EOF
 
-p. The status command shows us that there are no outstanding changes
-in the working directory.  And the "bad comment" is no longer part of
-the file contents.
+p. status命令告诉我们现在工作目录没有未记录的修改。而且“错误注释”也不在文件里了。
 
 ----------------------------------------------------------------------
-h1. Undoing Staged Changes (before committing)
+h1. （在提交之前）恢复已跟踪的修改
 
-h3. Goals
+h3. 目的
 
-* Learn how to revert changes that have been staged
+* 学习如何恢复已经被跟踪的修改
 
-h2. Change the file and stage the change
+h2. 修改文件并跟踪
 
-p. Modify the @hello.rb@ file to have a bad comment
+p. 修改文件 @hello.rb@ ，加入一条错误注释
 
 File: hello.rb
 # This is an unwanted but staged comment
@@ -797,14 +792,14 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-p. And then go ahead and stage it.
+p. 然后跟踪这次修改。
 
 Execute:
 git add hello.rb
 
-h2. Check the Status
+h2. 检查状态
 
-p. Check the status of your unwanted change.
+p. 检查状态，看看这个你不想要的修改。
 
 Execute:
 git status
@@ -814,13 +809,11 @@ Output:
 =status
 EOF
 
-p. The status output shows that the change has been staged and is
-ready to be committed.
+p. 状态显示这个修改已经被跟踪并等待提交。
 
-h2. Reset the Staging Area
+h2. 重置跟踪区
 
-p. Fortunately the status output tells us exactly what we need to do
-to unstage the change.
+p. 多好，status的输出明确告诉我们该如何不再跟踪一个修改。
 
 Execute:
 git reset HEAD hello.rb
@@ -830,15 +823,13 @@ Output:
 =reset
 EOF
 
-p. The @reset@ command resets the staging area to be whatever is in
-HEAD.  This clears the staging area of the change we just staged.
+p. @reset@ 命令将把跟踪区重置到和HEAD版本一致的状态。这就把跟踪区里已经跟踪的修改
+清空了。
 
-p. The @reset@ command (by default) doesn't change the working
-directory.  So the working directory still has the unwanted comment in
-it.  We can use  the @checkout@ command of the previous lab to remove
-the unwanted change from the working directory.
+p. @reset@ 命令（默认）不修改当前工作目录。所以工作目录里依旧会保留不想要的注释。
+我们可以用上一节介绍的 @checkout@ 命令来移出工作目录里不想要的修改。
 
-h2. Checkout the Committed Version
+h2. 签出之前提交的版本
 
 Execute:
 git checkout hello.rb
@@ -849,7 +840,7 @@ Output:
 =status2
 EOF
 
-p. And our working directory is clean once again.
+p. 现在我们的工作目录又变得整洁了。
 
 ----------------------------------------------------------------------
 h1. Undoing Committed Changes
