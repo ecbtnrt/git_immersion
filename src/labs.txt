@@ -912,40 +912,33 @@ h2. 接下来
 p. 接下来，让我们看看如何恢复库历史里最近的提交。
 
 ----------------------------------------------------------------------
-h1. Removing Commits from a Branch
+h1. 从分支中彻底移除提交
 
-h3. Goals
+h3. 目的
 
-* Learn how to remove the most recent commits from a branch
+* 学习如何从一个分支中移除最近的一次提交
 
-p. The @revert@ command of the previous section is a powerful command
-that lets us undo the effects of any commit in the repository.
-However, both the original commit and the "undoing" commit are visible
-in the branch history (using the @git log@ command).
+p. 上一节介绍的 @revert@ 命令很强大，可以让我们恢复库中任意提交的修改。不过，原始
+提交和“恢复”提交都会显示在分支历史里（用 @git log@ 命令可以看到）。
 
-p. Often we make a commit and immediately realize that it was a
-mistake.  It would be nice to have a "take back" command that would
-allow us to pretend that the incorrect commit never happened.  The
-"take back" command would even prevent the bad commit from showing up
-the @git log@ history.  It would be as if the bad commit never
-happened.
+p. 有时我们提交之后立刻意识到一些错误。有个“后悔”命令可以让这次错误的提交看起来完全
+没发生，该多好。这个“后悔”命令甚至不会让这次错误提交显示在 @git log@ 历史里。就像
+完全没有这回事一样。
 
-h2. The @reset@ command
+h2. @reset@ 命令
 
-p. We've already seen the @reset@ command and have used it to set the
-staging area to be consistent with a given commit (we used the HEAD
-commit in our previous lab).
+p. 我们已经见识过 @reset@ 命令，用它把跟踪区重置为给定的提交版本（上一节中我们重置
+到HEAD版本）。
 
-p. When given a commit reference (i.e. a hash, branch or tag name),
-the @reset@ command will ...
+p. 如果给定一个提交的引用（比如，hash值，分支或者标签名）， @reset@ 命令就会……
 
-# Rewrite the current branch to point to the specified commit
-# Optionally reset the staging area to match the specified commit
-# Optionally reset the working directory to match the specified commit
+# 重写当前分支，将其指向指定的提交
+# 可能的话，重置跟踪区，和指定的提交一致
+# 可能的话，重置工作目录，和指定的提交一致
 
-h2. Check Our History
+h2. 检查我们的历史
 
-p. Let's do a quick check of our commit history.
+p. 让我们快速浏览一下提交历史。
 
 Execute:
 git hist
@@ -955,25 +948,21 @@ Output:
 =hist
 EOF
 
-p. We see that we have an "Oops" commit and a "Revert Oops" commit as
-the last two commits made in this branch.  Let's remove them using
-reset.
+p. 我们可以看到写着“Oops”的提交和写着“Revert Oops”的提交，是这个分支的最后两次提交。
+让我们用reset命令把它们移除。
 
-h2. First, Mark this Branch
+h2. 首先，标记这个分支
 
-p. But before we remove the commits, let's mark the latest commit with
-a tag so we can find it again.
+p. 在移除提交之前，让我们先标记最后的提交，这样我们一会儿还能找到这个提交。
 
 Execute:
 git tag oops
 
-h2. Reset to Before Oops
+h2. 重置到“Oops”提交前的状态
 
-p. Looking at the log history (above), we see that the commit tagged
-'v1' is the commit right before the bad commit.  Let's reset the
-branch to that point.  Since that branch is tagged, we can use the tag
-name in the reset command (if it wasn't tagged, we could just use the
-hash value).
+p. 查看（上面的）日志历史，我们看到标记为‘v1’的提交，正好在错误的提交之前。让我们把
+分支重置到这个提交点。由于这个分支的提交有标签，我们可以将这个标签名用在reset命令里
+（如果没有标记过，可以使用hash值）。
 
 Execute:
 git reset --hard v1
@@ -986,17 +975,13 @@ Output:
 =hist2
 EOF
 
-p. Our master branch now points to the v1 commit and the Oops commit
-and the Revert Oops commit are no longer in the branch.  The @--hard@
-parameter indicates that the working directory should be updated to be
-consistent with the new branch head.
+p. 现在主分支已经指向v1提交了，而Oops和Revert Oops提交已经不见了。参数 @--hard@
+表示将当前工作目录更新到和新分支的最新版本一致。
 
-h2. Nothing is Ever Lost
+h2. 不过，什么都没丢
 
-p. But what happened to the bad commits?  It turns out that the
-commits are still in the repository.  In fact, we can still reference
-them.  Remember that at the beginning of this lab we tagged the
-reverting commit with the tag "oops".  Let's look at _all_ the commits.
+p. 但是，那些错误的提交肿么了？其实那些提交还在库里。实际上，我们还可以引用这些提交。
+还记得我们在这节一开始时把恢复的提交标记为“oops”么？现在让我们看看 _所有_ 提交。
 
 Execute:
 git hist --all
@@ -1006,21 +991,16 @@ Output:
 =hist3
 EOF
 
-p. Here we see that the bad commits haven't disappeared.  They are
-still in the repository.  It's just that they are no longer listed in
-the master branch.  If we hadn't tagged them, they would still be in
-the repository, but there would be no way to reference them other than
-using their hash names.  Commits that are unreferenced remain in the
-repository until the system runs the garbage collection software.
+p. 现在我们看到，错误的提交并没有消失。它们还在库里。只是它们现在不会列在主分支里了。
+如果我们没给它们打标签，它们也会在库里，不过除了用hash值，没有别的办法可以引用到。不
+能引用到的提交一直会在库里，直到系统运行垃圾回收软件，才会被清理掉。
 
-h2. Dangers of Reset
+h2. 重置（reset）的危险
 
-p. Resets on local branches are generally safe.  Any "accidents" can
-usually be recovered from by just resetting again with the desired
-commit.
+p. 一般来说，重置本地分支都是安全的。如果有点小“意外”，一般再次重置到希望的提交就能解
+决问题。
 
-p. However, if the branch is shared on remote repositories, resetting
-can confuse other users sharing the branch.
+p. 不过，如果分支是共享在远程库里，重置可能会让分支的其他共享用户感到困惑。
 
 ----------------------------------------------------------------------
 h1. Remove the oops tag
