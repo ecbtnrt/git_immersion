@@ -843,25 +843,22 @@ EOF
 p. 现在我们的工作目录又变得整洁了。
 
 ----------------------------------------------------------------------
-h1. Undoing Committed Changes
+h1. 撤销已提交的修改
 
-h3. Goals
+h3. 目的
 
-* Learn how to revert changes that have been committed to a local repository.
+* 学习如何撤销已经提到本地库离的修改。
 
-h2. Undoing Commits
+h2. 撤销提交
 
-p. Sometimes you realized that a change that you have already
-committed was not correct and you wish to undo that commit.  There are
-several ways of handling that issue, and the way we are going to use
-in this lab is always safe.
+p. 有时你会突然意识到你刚刚提交的修改有问题，希望撤销这次提交。有好几种方法可以做到，
+我们这节里学习最安全的一种方法。
 
-p. Essentially we will undo the commit by creating a new commit that
-reverses the unwanted changes.
+p. 其实，我们撤销修改，就是再提交一次撤销了之前修改的新修改。
 
-h2. Change the file and commit it.
+h2. 修改文件并提交。
 
-p. Change the @hello.rb@ file to the following.
+p. 像下面那样修改 @hello.rb@ 文件。
 
 File: hello.rb
 # This is an unwanted but committed change
@@ -874,34 +871,30 @@ Execute:
 git add hello.rb
 git commit -m "Oops, we didn't want this commit"
 
-h2. Create a Reverting Commit
+h2. 创建撤销的提交
 
-p. To undo a committed change, we need to generate a commit that
-removes the changes introduced by our unwanted commit.
+p. 为了撤销一个一提交的修改，我们需要提交一个修改，这个修改移除了刚提交的不想要的内容。
 
 Execute:
 -git revert HEAD
 +git revert HEAD --no-edit
 =revert
 
-p. This will pop you into the editor.  You can edit the default commit
-message or leave it as is.  Save and close the file. You should see ...
+p. 这个将打开编辑器。你可以编辑默认的提交信息，或者使用默认的。保存并关闭文件。你将看到……
 
 Output:
 =revert
 EOF
 
-p. Since we were undoing the very last commit we made, we were able to
-use @HEAD@ as the argument to revert.  We can revert any arbitrary
-commit earlier in history by simply specifying its hash value.
+p. 因为我们要恢复的是最后一次提交，我们可以用 @HEAD@ 作为要恢复的版本参数。只需要
+简单的指定对应的hash值，我们就可以恢复历史上的任意一个提交，
 
-p(note). *Note:* The @--no-edit@ in the output can be ignored.
-It was necessary to generate the output without opening the editor.
+p(note). *注意：* 输出中的 @--no-edit@ 可以被忽略。只有在不想打开编辑器的情况下
+才会用到这个参数。
 
-h2. Check the log
+h2. 检查日志
 
-p. Checking the log shows both the unwanted and the reverting commits
-in our repository.
+p. 检查日志，将会看到不想要的提交和恢复的提交都在我们的库里。
 
 Execute:
 git hist
@@ -911,14 +904,12 @@ Output:
 =hist
 EOF
 
-p. This technique will work with any commit (although you may have to
-resolve conflicts).  It is safe to use even on branches that are
-publicly shared on remote repositories.
+p. 这个技术可以恢复任意提交（虽然有时需要你手动解决冲突）。即便对于在远程库上公开分享
+的分支，也可以安全使用。
 
-h2. Up Next
+h2. 接下来
 
-p. Next, let's look at a technique that can be used to remove the most
-recent commits from the repository history.
+p. 接下来，让我们看看如何恢复库历史里最近的提交。
 
 ----------------------------------------------------------------------
 h1. Removing Commits from a Branch
