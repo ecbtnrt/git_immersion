@@ -1182,16 +1182,15 @@ Output:
 EOF
 
 ----------------------------------------------------------------------
-h1. Git Internals: The .git directory
+h1. 探索git内部：.git目录
 
-h3. Goals
+h3. 目的
 
-* Learn about the structure of the @.git@ directory
+* 学习 @.git@ 目录的结构
 
-h2. The @.git@ Directory
+h2. @.git@ 目录
 
-p. Time to do some exploring.  First, from the root of your project
-directory...
+p. 到了探险的时候了。首先，在你项目的根目录下⋯⋯
 
 Execute:
 ls -C .git
@@ -1201,8 +1200,7 @@ Output:
 =lsgit
 EOF
 
-p. This is the magic directory where all the git "stuff" is stored.
-Let's peek in the objects directory.
+p. 这是个有魔法的目录，保存了git的所有“财产”。让我们瞧瞧里面的objects目录。
 
 h2. The Object Store
 
@@ -1214,11 +1212,10 @@ Output:
 =lsobjs
 EOF
 
-p. You should see a bunch of directories with 2 letter names.  The
-directory names are the first two letters of the sha1 hash of the
-object stored in git.
+p. 你应该看到一堆名字是两个字母的目录。这些目录名字是保存在git里的对象的sha1 hash
+值的头两个字母。
 
-h2. Deeper into the Object Store
+h2. 深入探索保存的对象
 
 Set: dir=`ls .git/objects | head -1`.strip
 Execute:
@@ -1229,13 +1226,11 @@ Output:
 =lsobjs2
 EOF
 
-p. Look in one of the two-letter directories.  You should see some
-files with 38-character names.  These are the files that contain the
-objects stored in git.  These files are compressed and encoded, so
-looking at their contents directly won't be very helpful, but we will
-take a closer look in a bit.
+p. 让我们看看其中一个目录。你应该看到一些文件，名字由38个字符组成。这些文件的内容是git
+保存的对象。这些文件都经过了压缩和编码，因此没法直接查看其内容，不过一会儿我们会想办法看
+到里面真正保存的东西。
 
-h2. Config File
+h2. 配置文件
 
 Execute:
 cat .git/config
@@ -1245,11 +1240,10 @@ Output:
 =cat
 EOF
 
-p. This is a project-specific configuration file.  Config entries in
-here will override the config entries in the @.gitconfig@ file in your
-home directory, at least for this project.
+p. 这是具体项目的配置文件。在操作这个工程时，这个文件里的配置项会覆盖你主目录下 @.gitconfig@ 文件里
+的配置项。
 
-h2. Branches and Tags
+h2. 分支和标签
 
 Execute:
 ls .git/refs
@@ -1268,15 +1262,13 @@ Output:
 =refv1
 EOF
 
-p. You should recognize the files in the tags subdirectory.  Each file
-corresponds to a tag you created with the @git tag@ command earlier.
-Its content is just the hash of the commit tied to the tag.
+p. 你应该能认出tags目录下的文件。每个文件都对应一个你之前用 @git tag@ 命令创建的
+标签。其内容就是标签对应的提交的hash值。
 
-p. The heads directory is similar, but is used for branches rather
-than tags.  We only have one branch at the moment, so all you will see
-is master in this directory.
+p. heads目录也类似，不过是分支名而不是标签名。我们目前只有一个分支，所以你只能看到
+目录里有一个master文件。
 
-h2. The HEAD File
+h2. HEAD文件
 
 Execute:
 cat .git/HEAD
@@ -1286,36 +1278,34 @@ Output:
 =head
 EOF
 
-p. The HEAD file contains a reference to the current branch.  It
-should be a reference to master at this point.
+p. HEAD文件包含了到当前分支的引用。目前这个应该是对master的引用。
 
 ----------------------------------------------------------------------
-h1. Git Internals: Working directly with Git Objects
+h1. 探索git内部：直接操作git对象
 
-h3. Goals
+h3. 目的
 
-* Explore the structure of the object store
-* Learn how to use the SHA1 hashes to find content in the repository
+* 探索存储的对象的结构Explore the structure of the object store
+* 学习如何通过sha1 hash值从库里找到对应的内容
 
-p. Now let's use some tools to probe git objects directly.
+p. 现在让我们用一些工具来直接探索git的对象。
 
-h2. Finding the Latest Commit
+h2. 找到最近一次的提交
 
 Execute:
 git hist --max-count=1
 =log
 
-p. This should show the latest commit made in the repository.  The
-SHA1 hash on your system is probably different that what is on mine,
-but you should see something like this.
+p. 这个应该可以看到库里最后一次提交。你系统里的sha1 hash值可能和我这里的完全不同，
+不过你也应该看到类似的东西。
 
 Output:
 =log
 EOF
 
-h2. Dumping the Latest Commit
+h2. 转存最近一次提交
 
-Using the SHA1 hash from the commit listed above ...
+使用上面列出的那个sha1 hash值⋯⋯
 
 Set: hash=hash_for("Added a Rakefile")
 Execute:
@@ -1331,34 +1321,31 @@ Output:
 =dump
 EOF
 
-p(note). *NOTE:* If you defined the 'type' and 'dump' aliases from
-the aliases lab, then you can type @git type@ and @git dump@ rather
-than the longer cat-file commands (which I never remember).
+p(note). *注意：* 如果你在别名那一节里定义了“type”和“dump”别名，那么你就可以
+使用 @git type@ 和 @git dump@ 代替那一长串cat-file命令（我总是记不住这个命
+令）。
 
-p. This is the dump of the commit object that is at the head of the
-master branch.  It looks a lot like the commit object from the
-presentation earlier.
+p. 这个转存的对象，是master分支最近的一次提交。它看上去和之前展示的那个提交对象很像。
 
-h2. Finding the Tree
+h2. 查找目录树
 
-p. We can dump the directory tree referenced in the commit.  This
-should be a description of the (top level) files in our project (for
-that commit).  Use the SHA1 hash from the "tree" line listed above.
+p. 我们可以转存一个提交里引用的目录树。其内容应该是我们项目里（所提交的）描述（顶
+层）文件的信息。使用上面列出的“tree”那行的sha1 hash值。
 
 Set: treehash=hash_in(var['hash'], 'tree')
 Execute:
 git cat-file -p <treehash>
 =treedump
 
-p. Here's what my tree looks like...
+p. 我们的目录树看上去就是酱紫⋯⋯
 
 Output:
 =treedump
 EOF
 
-p. Yep, I see the Rakefile and the lib directory.
+p. 是的，我看到了Rakefile和lib目录。
 
-h2. Dumping the lib directory
+h2. 转存lib目录
 
 Set: libhash=hash_in(var['treehash'], 'lib')
 Execute:
@@ -1369,9 +1356,9 @@ Output:
 =libdump
 EOF
 
-p. There's the @hello.rb@ file.
+p. 这里有 @hello.rb@ 文件。
 
-h2. Dumping the @hello.rb@ file
+h2. 转存 @hello.rb@ 文件
 
 Set: rbhash=hash_in(var['libhash'], 'hello')
 Execute:
@@ -1382,15 +1369,13 @@ Output:
 =rbdump
 EOF
 
-p. There you have it.  We've dumped commit objects, tree objects and
-blob objects directly from the git repository.  That's all there is to
-it, blobs, trees and commits.
+p. 你成功了。我们已经从git库里直接转存了提交的对象，目录树对象和blob对象。这就是git
+里的全部对象类型，blob，目录树和提交。
 
-h2. Explore On You Own
+h2. 你自己去探索吧
 
-p. Explore the git repo manually on your own.  See if you can find the
-original hello.rb file from the very first commit by manually
-following the SHA1 hash references starting in the latest commit.
+p. 你自己去手动探索git库吧。看看你是不是能从最后一次提交开始，手动跟踪sha1 hash值的
+引用信息，找到最原始提交的那个hello.rb文件的内容。
 
 ----------------------------------------------------------------------
 h1. Creating a Branch
