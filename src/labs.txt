@@ -1003,16 +1003,15 @@ p. 一般来说，重置本地分支都是安全的。如果有点小“意外�
 p. 不过，如果分支是共享在远程库里，重置可能会让分支的其他共享用户感到困惑。
 
 ----------------------------------------------------------------------
-h1. Remove the oops tag
+h1. 删除oops标签
 
-h3. Goals
+h3. 目的
 
-* Remove the oops tag (housekeeping)
+* 删除oops标签（保持库的整洁）
 
-h2. Removing tag oops
+h2. 删除oops标签
 
-p. The oops tag has served its purpose.  Let's remove it and allow the
-commits it referenced to be garbage collected.
+p. 标签oops已经完成了它的历史使命。让我们删掉它，以便它所引用的提交可以被垃圾收集机制清理掉。
 
 Execute:
 git tag -d oops
@@ -1025,18 +1024,18 @@ Output:
 =hist
 EOF
 
-p. The oops tag is no longer listed in the repository.
+p. 标签oops已经不在库里了。
 
 ----------------------------------------------------------------------
-h1. Amending Commits
+h1. 修正提交
 
-h3. Goals
+h3. 目的
 
-* Learn how to amend an existing commit
+* 学习如何修正已经完成的提交内容
 
-h2. Change the program then commit
+h2. 修改程序并提交
 
-p. Add an author comment to the program.
+p. 在程序里加入作者的注释。
 
 File: hello.rb
 # Default is World
@@ -1050,11 +1049,10 @@ Execute:
 git add hello.rb
 git commit -m "Add an author comment"
 
-h2. Oops, Should have an Email
+h2. 等一下！还应该有邮件
 
-p. After you make the commit, you realize that any good author comment
-should have an email included.  Update the hello program to include an
-email.
+p. 在你提交之后，你意识到任何好的作者注释，都应该包含邮件信息。所以更新hello程序，在
+注释里加入邮件信息。
 
 File: hello.rb
 # Default is World
@@ -1064,10 +1062,9 @@ name = ARGV.first || "World"
 puts "Hello, #{name}!"
 EOF
 
-h2. Amend the Previous Commit
+h2. 修正前一次提交
 
-p. We really don't want a separate commit for just the email.  Let's
-amend the previous commit to include the email change.
+p. 我们确实不想为了这个邮件而做一次单独的提交。让我们直接修正前一次的提交，加入邮件的改动。
 
 Execute:
 git add hello.rb
@@ -1081,7 +1078,7 @@ Output:
 EOF
 
 
-h2. Review the History
+h2. 浏览历史
 
 Execute:
 git hist
@@ -1091,22 +1088,19 @@ Output:
 =hist
 EOF
 
-p. We can see the original "author" commit is now gone, and it is
-replaced by the "author/email" commit.  You can achieve the same
-effect by resetting the branch back one commit and then recommitting
-the new changes.
+p. 我们可以看到原来的“author”提交已经没有了，取代的它的是“author/email”提交。
+这个也可以通过重置分支到前一次提交，然后重新提交修改，来达到同样的效果。
 
 ----------------------------------------------------------------------
-h1. Moving Files
+h1. 移动文件
 
-h3. Goals
+h3. 目的
 
-* Learn how to move a file within a repository.
+* 学习如何在库内移动文件
 
-h2. Move the hello.rb file into a lib directory.
+h2. 移动hello.rb文件到lib目录。
 
-p. We are now going to build up the structure of our little
-repository.  Let's move the program into a lib directory.
+p. 我们现在要构建自己小库的结构。让我们把程序移动到lib目录里。
 
 Execute:
 mkdir lib
@@ -1122,50 +1116,44 @@ Output:
 =status
 EOF
 
-p. By using git to do the move, we inform git of 2 things
+p. 使用git来移动文件，我们实际要通知git做2件事
 
-# That the file @hello.rb@ has been deleted.
-# The file @lib/hello.rb@ has been created.
+# 删除了 @hello.rb@ 文件。
+# 创建了 @lib/hello.rb@ 文件。
 
-p. Both of these bits of information are immediately staged and ready
-to be committed.  The git status command reports that the file has been
-moved.
+p. 这两个事情立刻被git跟踪，等待提交。命令git status报告文件已经移动。
 
-h2. Another way of moving files
+h2. 另一种移动文件的方法
 
-p. One of the nice things about git is that you can forget about
-source control until the point you are ready to start committing code.
-What would happen if we used the operating system command to move the
-file instead of the git command?
+p. 使用git最美妙的一点是，直到你准备提交的那一刻，你可以完全忘记源码控制这回事。如
+果我们用系统的移动命令代替git的移动命令，会怎么样呢？
 
-p. It turns out the following set of commands is identical to what we
-just did.  It's a bit more work, but the result is the same.
+p. 下面的命令就演示了我们刚才想做的事情。要打的命令有点多，但是结果完全一样。
 
-p(command). We could have done:
+p(command). 我们应该这么做：
 
 pre(instructions). mkdir lib
 mv hello.rb lib
 git add lib/hello.rb
 git rm hello.rb
 
-h2. Commit the new directory
+h2. 提交新目录
 
-p. Let's commit this move.
+p. 让我们提交这个移动。
 
 Execute:
 git commit -m "Moved hello.rb to lib"
 
 ----------------------------------------------------------------------
-h1. More Structure
+h1. 更多的结构
 
-h3. Goals
+h3. 目的
 
-* Add another file to our repository
+* 在库里加入另一个文件
 
-h2. Now add a Rakefile
+h2. 现在加入Rakefile
 
-p. Let's add a rakefile to our repository.  The following one will do
-nicely.
+p. 让我们往库里添加rakefile。像下面那样：
 
 File: Rakefile
 #!/usr/bin/ruby -wKU
@@ -1177,13 +1165,13 @@ task :run do
 end
 EOF
 
-p. Add and commit the change.
+p. 添加并提交这次修改。
 
 Execute:
 git add Rakefile
 git commit -m "Added a Rakefile."
 
-p. You should be able to use Rake to run your hello program now.
+p. 现在你可以使用Rake来执行hello程序了。
 
 Execute:
 rake
