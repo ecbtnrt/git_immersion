@@ -1378,31 +1378,29 @@ p. 你自己去手动探索git库吧。看看你是不是能从最后一次提�
 引用信息，找到最原始提交的那个hello.rb文件的内容。
 
 ----------------------------------------------------------------------
-h1. Creating a Branch
+h1. 创建分支
 
-h3. Goals
+h3. 目的
 
-* Learn how to create a local branch in a repository
+* 学习如何在库里创建一个本地分支
 
-p. It's time to do a major rewrite of the hello world functionality.
-Since this might take awhile, you'll want to put these changes into a
-separate branch to isolate them from changes in master.
+p. 现在让我们来对hello world的功能做个大的重写。由于这个改动需要很多时间，你希望
+能在一个单独的分支上做修改，不会影响到master的内容。
 
-h2. Create a Branch
+h2. 创建一个分支
 
-p. Let's call our new branch 'greet'.
+p. 让我们把新分支叫做“greet”。
 
 Execute:
 git checkout -b greet
 !git status
 
-p(note). *NOTE:* @git checkout -b <branchname>@ is a shortcut for @git
-branch <branchname>@ followed by a @git checkout <branchname>@.
+p(note). *注意：* @git checkout -b <branchname>@ 是以下两个命令的简写，
+@git branch <branchname>@ 跟着 @git checkout <branchname>@ 。
 
-p. Notice that the git status command reports that you are on the
-'greet' branch.
+p. 注意git status命令告诉你现在你在“greet”分支。
 
-h2. Changes for Greet: Add a Greeter class.
+h2. 为了问候而修改：加入Greeter类。
 
 File: lib/greeter.rb
 class Greeter
@@ -1419,9 +1417,9 @@ Execute:
 git add lib/greeter.rb
 git commit -m "Added greeter class"
 
-h2. Changes for Greet: Modify the main program
+h2. 为了问候而修改：修改主程序
 
-p. Update the hello.rb file to use greeter
+p. 更新hello.rb文件来使用刚加入的greeter
 
 File: lib/hello.rb
 require 'greeter'
@@ -1437,9 +1435,9 @@ Execute:
 git add lib/hello.rb
 git commit -m "Hello uses Greeter"
 
-h2. Changes for Greet: Update the Rakefile
+h2. 为了问候而修改：更新Rakefile
 
-p. Update the Rakefile to use an external ruby process
+p. 更新Rakefile，用另一个ruby进程启动
 
 File: Rakefile
 #!/usr/bin/ruby -wKU
@@ -1455,19 +1453,19 @@ Execute:
 git add Rakefile
 git commit -m "Updated Rakefile"
 
-h2. Up Next
+h2. 接下来
 
-p. We now have a new branch called *greet* with 3 new commits on it.
-Next we will learn how to navigate and switch between branches.
+p. 我们现在有了一个叫 *greet* 的新分支，里面有三个新提交。下面我们学习如何在分支间
+切换。
 
 ----------------------------------------------------------------------
-h1. Navigating Branches
+h1. 在分支间转换
 
-h3. Goals
+h3. 目的
 
-* Learn how to navigate between the branches of a repository
+* 学习如何在库的不同分支间转换
 
-p. You now have two branches in your project:
+p. 现在你的项目里有了两个分支：
 
 Execute:
 git hist --all
@@ -1477,9 +1475,9 @@ Output:
 =log
 EOF
 
-h2. Switch to the Master Branch
+h2. 切换到主分支
 
-p. Just use the @git checkout@ command to switch between branches.
+p. 只需要使用 @git checkout@ 命令就可以在分支间切换。
 
 Execute:
 git checkout master
@@ -1492,10 +1490,9 @@ Output:
 =cat
 EOF
 
-p. You are now on the master branch.  You can tell because the
-hello.rb file doesn't use the @Greeter@ class.
+p. 你现在在主分支了。因为hello.rb文件里没有使用 @Greeter@ 类。
 
-h2. Switch Back to the Greet Branch.
+h2. 切换回greet分支。
 
 Execute:
 git checkout greet
@@ -1508,26 +1505,24 @@ Output:
 =cat2
 EOF
 
-p. The contents of the @lib/hello.rb@ confirms we are back on the
-*greet* branch.
+p. 查看 @lib/hellor.rb@ 的内容可以确定已经回到 *greet* 分支。
 
 ----------------------------------------------------------------------
-h1. Changes in Master
+h1. 在主分支里修改
 
-h3. Goals
+h3. 目的
 
-* Learning how to deal with multiple branches with different (and possibly conflicting) changes.
+* 学习如何在多个分支里处理不同的（甚至有冲突）的修改。
 
-p. While you were changing the greet branch, someone else decided to
-update the master branch.  They added a README.
+p. 当你修改greet分支时，有人决定要更新主分支，加入一个README文件。
 
-h2. Update the README file with changes.
+h2. 更新README文件。
 
 File: README
 This is the Hello World example from the git tutorial.
 EOF
 
-h2. Commit the README changes to master.
+h2. 将README这个改动提交到主分支。
 
 Execute:
 git checkout master
@@ -1535,16 +1530,16 @@ git add README
 git commit -m "Added README"
 
 ----------------------------------------------------------------------
-h1. Viewing Diverging Branches
+h1. 查看分支是如何分叉的
 
-h3. Goals
+h3. 目的
 
-* Learn how to view diverging branches in a repository.
+* 学习如何查看库里分叉的分支。
 
-h2. View the Current Branches
+h2. 查看当前分支
 
-p. We now have two diverging branches in the repository.  Use the
-following log command to view the branches and how they diverge.
+p. 我们现在在库里有两个分离的分支。用下面的命令可以查看这些分支，并看到他们是
+如何分开的。
 
 Execute:
 git hist --all
@@ -1554,14 +1549,13 @@ Output:
 =log
 EOF
 
-p. Here is our first chance to see the @--graph@ option on @git hist@ in
-action. Adding the @--graph@ option to @git log@ causes it to draw the
-commit tree using simple ASCII characters.  We can see both branches
-(greet and master), and that the master branch is the current HEAD.
-The common ancestor to both branches is the "Added a Rakefile" branch.
+p. 这是我们第一次有机会看看 @git hist@ 命令里的 @--graph@ 选项有什么效果。给 
+@git log@ 加入 @--graph@ 选项，会画出由ASCII字符组成的提交树。我们可以看到两
+个分支（greet和master），而且master分支是当前的HEAD。两个分支源自同一个分支，
+其名字是“Added a Rakefile”。
 
-p. The @--all@ flag makes sure that we see all the branches.  The
-default is to show only the current branch.
+p. 参数 @--all@ 保证我们可以看到所有分支。没有这个参数的默认情况，只会显示当前
+分支。
 
 ----------------------------------------------------------------------
 h1. Merging
