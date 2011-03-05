@@ -1558,16 +1558,15 @@ p. 参数 @--all@ 保证我们可以看到所有分支。没有这个参数的�
 分支。
 
 ----------------------------------------------------------------------
-h1. Merging
+h1. 合并
 
-h3. Goals
+h3. 目的
 
-* Learn how to merge two diverging branches to bring the changes back into a single branch.
+* 学习如何合并两个分离的分支，把所有改动合并到一个分支上。
 
-h2. Merge the branches
+h2. 合并分支
 
-p. Merging brings the changes in two branches together.  Let's go back
-to the greet branch and merge master onto greet.
+p. 合并分支把两个分支的改动都合到一起。让我们先切回greet分支，把master的改动合过来。
 
 Execute:
 git checkout greet
@@ -1583,28 +1582,25 @@ Output:
 =hist
 EOF
 
-p. By merging master into your greet branch periodically, you can pick
-up any changes to master and keep your changes in greet compatible
-with changes in the mainline.
+p. 定期把master分支的改动合并到greet分支，你可以把这个分支的任何改动合回master分
+支，并且保持greet分支和主线的改动一致。
 
-p. However, it does produce ugly commit graphs. Latter we will look at
-the option of rebasing rather than merging.
+p. 不过，这么做也会得到非常难看的提交路径图。一会儿我们会试试用rebase而不是merge。
 
-h2. Up Next
+h2. 接下来
 
-p. But first, what if the changes in master conflict with the changes
-in greet?
+p. 不过等等，如果master里的改动和greet改动互相冲突怎么办？
 
 ----------------------------------------------------------------------
-h1. Creating a Conflict
+h1. 创造一个冲突
 
-h3. Goals
+h3. 目的
 
-* Create a conflicting change in the master branch.
+* 在master分支里创建一个有冲突的改动。
 
-h2. Switch back to master and create a conflict
+h2. 切换回master并创建一个冲突
 
-p. Switch back to the master branch and make this change:
+p. 切换回master分支，并做如下改动：
 
 Execute:
 git checkout master
@@ -1620,7 +1616,7 @@ Execute:
 git add lib/hello.rb
 git commit -m "Made interactive"
 
-h2. View the Branches
+h2. 查看分支
 
 Execute:
 git hist --all
@@ -1630,25 +1626,23 @@ Output:
 =log
 EOF
 
-p. Master at commit "Added README" has been merged to the greet
-branch, but there is now an additional commit on master that has not
-been merged back to greet.
+p. master分支的提交“Added README”已经被合到greet分支，不过现在有个新的提交没有
+合到greet。
 
-h2. Up Next
+h2. 接下来
 
-p. The latest change in master conflicts with some existing changes in
-greet.  Next we will resolve those changes.
+p. master里最后一次修改和gree里已经存在的修改有冲突。下面我们看看怎么解决这个冲突。
 
 ----------------------------------------------------------------------
-h1. Resolving Conflicts
+h1. 解决冲突
 
-h3. Goals
+h3. 目的
 
-* Learn how to handle conflicts during a merge
+* 学习在合并时如何处理冲突
 
-h2. Merge master to greet
+h2. 把master合并到greet
 
-p. Now go back to the greet branch and try to merge the new master.
+p. 现在回到greet分支，试着合并master最新的修改。
 
 Execute:
 git checkout greet
@@ -1663,7 +1657,7 @@ CONFLICT (content): Merge conflict in lib/hello.rb
 Automatic merge failed; fix conflicts and then commit the result.
 EOF
 
-If you open lib/hello.rb, you will see:
+如果你打开lib/hello.rb，你将看到：
 
 file: lib/hello.rb
 <<<<<<< HEAD
@@ -1684,13 +1678,11 @@ puts "Hello, #{my_name}!"
 >>>>>>> master
 EOF
 
-p. The first section is the version on the head of the current branch
-(greet).  The second section is the version on the master branch.
+p. 前一个区域是当前分支（greet）最新版本的内容。第二个区域是master分支版本的内容。
 
-h2. Fix the Conflict
+h2. 修正冲突
 
-p. You need to manually resolve the conflict.  Modify @lib/hello.rb@
-to be the following.
+p. 你需要手动解决冲突。像下面那样修改 @lib/hellow.rb@ 。
 
 File: lib/hello.rb
 require 'greeter'
@@ -1702,7 +1694,7 @@ greeter = Greeter.new(my_name)
 puts greeter.greet
 EOF
 
-h2. Commit the Conflict Resolution
+h2. 提交已经解决的冲突
 
 Execute:
 git add lib/hello.rb
@@ -1715,12 +1707,12 @@ Output:
 =commit
 EOF
 
-h2. Advanced Merging
+h2. 高级合并
 
-p. git doesn't provide any graphical merge tools, but it will gladly
-work with any third party merge tool you wish to use.  See
+p. git并没有提供图形化的合并工具，不过git可以和任何你想用的第三方合并工具一起工作。
+查看
 "http://onestepback.org/index.cgi/Tech/Git/UsingP4MergeWithGit.red":http://onestepback.org/index.cgi/Tech/Git/UsingP4MergeWithGit.red
-for a description of using the Perforce merge tool with git.
+，可以找到在git里使用Perforce合并工具的文档。
 
 ----------------------------------------------------------------------
 h1. Rebasing VS Merging
