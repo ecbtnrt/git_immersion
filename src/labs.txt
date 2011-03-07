@@ -1715,38 +1715,33 @@ p. git并没有提供图形化的合并工具，不过git可以和任何你想�
 ，可以找到在git里使用Perforce合并工具的文档。
 
 ----------------------------------------------------------------------
-h1. Rebasing VS Merging
+h1. 更改基线和合并
 
-h3. Goals
+h3. 目的
 
-* Learn the differences between rebasing and merging.
+* 学习更改基线与合并的区别
 
-h3. Discussion
+h3. 讨论
 
-p. Let's explore the differences between merging and rebasing.  In
-order to do so, we need to rewind the repository back in time before
-the first merge, and then redo the same steps, but using rebasing
-rather than merging.
+p. 让我们探究合并和更改基线的区别。为此，我们需要将库重新变成第一次合并之前的样子，
+然后再重复一些之前的步骤，不过用更改基线来代替合并。
 
-p. We will make use the of the @reset@ command to wind the branches
-back in time.
+p. 我们将用 @reset@ 命令来将分支退回到之前的样子。
 
 ----------------------------------------------------------------------
-h1. Resetting the Greet Branch
+h1. 重置greet分支
 
-h3. Goals
+h3. 目的
 
-* Reset the greet branch to the point before the first merge.
+* 将greet分支重置到第一次合并前的状态。
 
-h2. Reset the greet branch
+h2. 重置greet分支
 
-p. Let's go back in time on the greet branch to the point _before_ we
-merged master onto it.  We can *reset* a branch to any commit we want.
-Essentially this is modifying the branch pointer to point to anywhere
-in the commit tree.
+p. 让我们把greet分支变成合并主分支 _之前_ 的样子。我们可以 *重置* 一个分支到任何
+一个我们希望的提交。本质上说，这是将分支的索引直接指向提交树的任意位置。
 
-p. In this case we want to back greet up to the point prior to the
-merge with master.  We need to find the last commit before the merge.
+p. 这里，我们希望能把greet分支指向从master分支合并前的提交。我们先要找到合并前的
+最后一个提交。
 
 Execute:
 git checkout greet
@@ -1759,9 +1754,8 @@ Output:
 =log
 EOF
 
-p. That's a bit hard to read, but looking at the data we see that the
-"Updated Rakefile" commit was the last commit on the greet branch
-before merging.  Let's reset the greet branch to that commit.
+p. 有点难读不是么，不过仔细看看数据，我们可以看到“Updated Rakefile”提交是合并master
+之前的最后一次提交。让我们把greet分支重置到这个提交。
 
 Set: hash=hash_for("Updated Rakefile")
 Execute:
@@ -1772,10 +1766,9 @@ Output:
 =reset
 EOF
 
-h2. Check the branch.
+h2. 检查分支。
 
-p. Look at the log for the greet branch.  We no longer have the merge
-commits in its history.
+p. 检查greet分支的日志。历史数据中不再有合并的提交了。
 
 Execute:
 git hist --all
@@ -1786,19 +1779,17 @@ Output:
 EOF
 
 ----------------------------------------------------------------------
-h1. Resetting the Master Branch
+h1. 重置master分支
 
-h3. Goals
+h3. 目的
 
-* Reset the master branch to the point before the conflicting commit.
+* 将master分支重置到有冲突的提交前。
 
-h2. Reset the master branch
+h2. 重置master分支
 
-p. When we added the interactive mode to the master branch, we made a
-change that conflicted with changes in the greet branch. Let's rewind
-the master branch to a point before the conflicting change.  This
-allows us to demonstrate the rebase command without worrying about
-conflicts.
+p. 当我们在master分支里加入交互模式的时候，我们的改动会和greet分支的内容产生冲突。
+让我们将master分支重置到有冲突的改动之前。这让我们可以演示rebase命令不需要担心冲
+突。
 
 Execute:
 git checkout master
@@ -1809,9 +1800,8 @@ Output:
 =log
 EOF
 
-p. The 'Added README' commit is the one directly before the
-conflicting interactive mode.  We will reset the master branch to
-'Added README' branch.
+p. “Added README”提交是导致冲突的交互模式改动前最后一个提交。我们将把master分支
+重置到“Added README”。
 
 Set: hash=hash_for("Added README")
 Execute:
@@ -1819,25 +1809,22 @@ git reset --hard <hash>
 git hist --all
 =log2
 
-p. Review the log.  It should look like the repository has been wound
-back in time to the point before we merged anything.
+p. 检查日志。看上去库已经回到合并之前的状态了。
 
 Output:
 =log2
 EOF
 
 ----------------------------------------------------------------------
-h1. Rebasing
+h1. 更改基线
 
-h3. Goals
+h3. 目的
 
-* Use the rebase command rather than the merge command.
+* 用更改基线命令代替合并命令。
 
-p. Ok, we are back in time before the first merge and we want to get
-the changes in master into our greet branch.
+p. 好了，我们现在回到第一次合并前的状态了。我们想把master的改动拿到greet分支。
 
-p. This time we will use the rebase command instead of the merge
-command to bring in the changes from the master branch.
+p. 这次我们将用更改基线命令代替合并命令，来获取master分支的修改。
 
 Execute:
 git checkout greet
@@ -1858,24 +1845,21 @@ $
 =log
 EOF
 
-h2. Merge VS Rebase
+h2. 合并与更改基线的对比
 
-p. The final result of the rebase is very similar to the merge.  The
-greet branch now contains all of its changes, as well as all the
-changes from the master branch.  However, the commit tree is quite
-different.  The commit tree for the greet branch has been rewritten so
-that the master branch is a part of the commit history.  This leaves
-the chain of commits linear and much easier to read.
+p. 更改基线的结果和合并很相似。greet分支现在含有所有的修改，包括master分支的修改。
+不过，提交树却完全不一样了。greet分支的提交树整个重写了，包含了master分支的提交历史
+这让提交链表看上去更连续，可读性更好。
 
-h2. When to Rebase, When to Merge?
+h2. 什么时候需要更改基线，什么时候需要合并？
 
-p. Don't use rebase ...
+p. 别更改基线⋯⋯
 
-# If the branch is public and shared with others.  Rewriting publicly shared branches will tend to screw up other members of the team.
-# When the _exact_ history of the commit branch is important (since rebase rewrites the commit history).
+# 如果分支是公开的，并且有人共享。重写公开共享的分支会让组里的其他人抓狂。
+# 如果分支的提交历史的内容的 _精确度_ 很重要的话（因为更改基线会重写提交历史）。
 
-p. Given the above guidelines, I tend to use rebase for short-lived,
-local branches and merge for branches in the public repository.
+p. 按照上面的指导，我在获取短生存期的本地分支的更改时使用更改基线，而获取公开库的分支
+的修改时使用合并。
 
 ----------------------------------------------------------------------
 h1. Merging Back to Master
