@@ -1862,13 +1862,13 @@ p. 按照上面的指导，我在获取短生存期的本地分支的更改时�
 的修改时使用合并。
 
 ----------------------------------------------------------------------
-h1. Merging Back to Master
+h1. 合并回master分支
 
-h3. Goals
+h3. 目的
 
-* We've kept our greet branch up to date with master (via rebase), now let's merge the greet changes back into the master branch.
+* 我们已经（通过修改基线）将master的改动更新到greet分支。现在让我们将greet上的改动合并回master分支。
 
-h2. Merge greet into master
+h2. 把greet合并到master
 
 Execute:
 git checkout master
@@ -1882,14 +1882,12 @@ $
 =merge
 EOF
 
-p. Because the head of master is a direct ancestor of the head of the
-greet branch, git is able to do a fast-forward merge.  When
-fast-forwarding, the branch pointer is simply moved forward to point
-to the same commit as the greeter branch.
+p. 由于master分支的顶端是greet分支顶端的祖先，git可以做快速合并。在快速模式下，
+分支的指针只是简单的移动，指向和greet分支的提交。
 
-p. There will never be conflicts in a fast-forward merge.
+p. 在快速合并时不可能产生冲突。
 
-h2. Review the logs
+h2. 检查日志
 
 Execute:
 git hist
@@ -1899,44 +1897,36 @@ Output:
 =log
 EOF
 
-p. The greet and master branches are now identical.
+p. 现在greet分支和master分支一致了。
 
 ----------------------------------------------------------------------
-h1. Mutliple Repositories
+h1. 多个库
 
-p. Up to this point we have been working with a single git repository.
-However, git excells at working with multiple repositories.  These
-extra repositories may be stored locally, or may be accessed across a
-network connection.
+p. 直到现在我们都只工作在一个git库上。不过，git也擅长处理多个库的工作。这些额外的
+库可以存在本地，也可以通过网络访问。
 
-p. In the next section will create a new repository called
-"cloned_hello".  We will show how to move changes from one repository
-to another, and how to handle conflicts when they arise from between
-two repositories.
+p. 下一节我们会创建一个新的名叫“cloned_hello”的库。我们会展示如何将改动从一个库
+转入另一个库，以及如何处理两个库间遇到的冲突。
 
  !git_clone.png!
 
 
-p. For now, we will be working with local repositories
-(i.e. repositories stored on your local hard disk), however most of
-the things learned in this section will apply to multiple repositories
-whether they are stored locally or remotely over a network.
+p. 虽然我们现在的工作都在本地库上（比如，存在你本地磁盘的库），不过，这节里学的东西
+都可以应用到多库，不管这些库是在本地还是在远程的网络上。
 
-p. *NOTE:* We are going be making changes to both copies of our
-repositories.  Make sure you pay attention to which repository you are
-in at each step of the following labs.
+p. *注意：* 我们会同时在你的两个库里做改动。你需要随时注意教程里每一步是在哪个库里
+工作。
 
 ----------------------------------------------------------------------
-h1. Cloning Repositories
+h1. 复制库
 
-h3. Goals
+h3. 目的
 
-* Learn how to make copies of repositories.
+* 学习如何复制库。
 
-h2. Go to the work directory
+h2. 切换工作路径
 
-p. Go to the working directory and make a clone of your hello
-repository.
+p. 进入工作目录，复制hello库。
 
 Execute:
 cd ..
@@ -1946,7 +1936,7 @@ pwd
 ls
 =ls
 
-p{color:red}. *NOTE: Now in the work directory.*
+p{color:red}. *注意：现在你在工作目录里。*
 
 Output:
 =cd
@@ -1954,12 +1944,11 @@ Output:
 =ls
 EOF
 
-p. At this point you should be in your "work" directory.  There should
-be a single repository here named "hello".
+p. 现在你应该在你的“工作”目录里。这里应该只有一个名叫“hello”的库。
 
-h2. Create a clone of the hello repository
+h2. 创建hello库的一个复制
 
-p. Let's make a clone of the repository.
+p. 让我们复制一个库。
 
 Execute:
 git clone hello cloned_hello
@@ -1976,20 +1965,18 @@ Output:
 =ls2
 EOF
 
-p. There should now be two repositories in your work directory: the
-original "hello" repository and the newly cloned "cloned_hello"
-repository.
+p. 现在你的工作目录里应该有两个库：老的“hello”库和新的“cloned_hello”库。
 
 ----------------------------------------------------------------------
-h1. Review the Cloned Repository
+h1. 检查复制的库
 
-h3. Goals
+h3. 目的
 
-* Learn about branches on remote repositories.
+* 学习如何在远程库里创建分支。
 
-h2. Look at the cloned repository
+h2. 浏览复制的库
 
-p. Let's take a look at the cloned repository.
+p. 让我们浏览一下这个复制好的库。
 
 Execute:
 cd cloned_hello
@@ -2002,11 +1989,10 @@ Output:
 =ls
 EOF
 
-p. You should see a list of all the files in the top level of the
-original repository (@README@, @Rakefile@ and @lib@).
+p. 你应该可以看到原来库顶层目录里所有文件的列表（ @README@ ， @Rakefile@ 和 @lib@ ）。
 
 
-h2. Review the Repository History
+h2. 浏览库的历史
 
 Execute:
 git hist --all
@@ -2016,24 +2002,21 @@ Output:
 =log
 EOF
 
-p. You should now see a list of the all the commits in the new
-repository, and it should (more or less) match the history of commits
-in the original repository.  The only difference should be in the
-names of the branches.
+p. 你应该可以看到新库里所有提交的列表，而且这个列表应该（或多或少）和原来库的提交历
+史一样。唯一的区别是分支的名字。
 
-h2. Remote branches
+h2. 远程分支
 
-p. You should see a *master* branch (along with *HEAD*) in the history
-list.  But you will also have number of strangely named branches
-(*origin/master*, *origin/greet* and *origin/HEAD*).  We'll talk about
-them in a bit.
+p. 你应该在历史列表里看到 *master* 分支（和 *HEAD* ）。不过你还会看到一些奇怪的
+分支名（ *origin/master* ， *origin/greet* 和 *origin/HEAD* ）。我们一会儿
+会讲到这些名字。
 
 ----------------------------------------------------------------------
-h1. What is Origin?
+h1. origin是什么？
 
-h3. Goals
+h3. 目的
 
-* Learn about naming remote repositories.
+* 学习远程库的命名。
 
 Execute:
 git remote
@@ -2043,8 +2026,7 @@ Output:
 =remote
 EOF
 
-p. We see that the cloned repository knows about a remote repository
-named origin.  Let's see if we can get more information about origin:
+p. 我们看到复制的库知道远程库的名字是origin。让我们试试能不能得到更多关于origin的信息。
 
 Execute:
 git remote show origin
@@ -2054,22 +2036,19 @@ Output:
 =show
 EOF
 
-p. Now we see that the remote repository "origin" is simply the original
-*hello* repository.  Remote repositories typically live on a separate
-machine, possibly a centralized server.  As we can see here, however,
-they can just as well point to a repository on the same machine.  
-There is nothing particularly special about the name "origin", 
-however the convention is to use the name "origin" for
-the primary centralized repository (if there is one).
+p. 现在我们看到远程库“origin”就是 *hello* 库。通常情况，远程库会在别的机器上，甚
+至可能是中心服务器上。不管怎么说，我们可以看到，远程库也可以是一个本机的另一个库。名
+字“origin”并没有什么特别的意义，只是转换的时候会用这个名字表示最早的中心库（如果确实
+有一个中心库的话）。
 
 ----------------------------------------------------------------------
-h1. Remote Branches
+h1. 远程分支
 
-h3. Goals
+h3. 目的
 
-* Learn about local VS remote branches
+* 学习本地分支和远程分支的不同
 
-p. Let's look at the branches available in our cloned repository.
+p. 让我们看看在复制的库里可用的分支。
 
 Execute:
 git branch
@@ -2079,13 +2058,12 @@ Output:
 =branch
 EOF
 
-p. That's it, only the master branch is listed.  Where is the greet
-branch?  The *git* *branch* command only lists the local branches by
-default.
+p. 就这些，只列出了master分支。greet分支去哪了？因为 *git branch* 默认只列出
+本地分支。
 
-h2. List Remote Branches
+h2. 列出远程分支
 
-p. Try this to see all the branches:
+p. 试试查看所有的分支：
 
 Execute:
 git branch -a
@@ -2095,52 +2073,49 @@ Output:
 =branch_a
 EOF
 
-p. Git has all the commits from the original repository, but branches
-in the remote repository are not treated as local branches here.  If
-we want our own *greet* branch, we need to create it ourselves. We
-will see how to do that in a minute.
+p. git保存了原库离得所有提交，但是追远程分支的处理和本地分支不一样。如果我们想找回
+ *greet* 分支，需要在本地创建一个。具体做法一会儿就会看到。
 
 ----------------------------------------------------------------------
-h1. Change the Original Repository
+h1. 修改原始库
 
-h3. Goals
+h3. 目的
 
-* Make some changes to the original repository so we can try to pull the changes
+* 在原库里做写修改，这样就可以试着从原库里拉修改到新库
 
-h2. Make a change in the original *hello* repository
+h2. 在原始 *hello* 库里做修改
 
 Execute:
 cd ../hello
 +pwd
-# (You should be in the original hello repository now)
+# (你现在应该在hello库里)
 
-p{color:red}. *NOTE: Now in the _hello_ repo*
+p{color:red}. *注意：现在在 _hello_ 库里*
 
-p. Make the following changes to README:
+p. 在README里加入下面的修改：
 
 File: README
 This is the Hello World example from the git tutorial.
 (changed in original)
 EOF
 
-p. Now add and commit this change
+p. 现在添加并提交这个修改
 
 Execute:
 git add README
 git commit -m "Changed README in original repo"
 
-h2. Up Next
+h2. 接下来
 
-p. The original repository now has later changes that are not in the
-cloned version.  Next we will pull those changes across to the cloned
-repository.
+p. 现在原始库里有了一个新的修改，这个修改不在复制库里。下面我们会把这些库拉到复制库
+里。
 
 ----------------------------------------------------------------------
-h1. Fetching Changes
+h1. 获取修改
 
-h3. Goals
+h3. 目的
 
-* Learn how to pull changes from a remote repository.
+* 学习如何从远程库拉修改
 
 Execute:
 cd ../cloned_hello
@@ -2150,32 +2125,27 @@ git fetch
 git hist --all
 =hist
 
-p{color:red}. *NOTE: Now in the _cloned_hello_ repo*
+p{color:red}. *注意：现在在 _cloned_hello_ 库里*
 
 Output:
 =fetch
 =hist
 EOF
 
-p. At this point the repository has all the commits from the original
-repository, but they are not integrated into the the cloned
-repository's local branches.
+p. 现在复制库也有了原库里的所有修改，但是还没有和复制库里的本地分支集成在一起。
 
-p. Find the "Changed README in original repo" commit in the history
-above.  Notice that the commit includes "origin/master" and
-"origin/HEAD".
+p. 在上面的历史信息里找到“Changed README in original repo”提交。注意到提交
+包含标签“origin/master”和“origin/HEAD”。
 
-p. Now look at the "Updated Rakefile" commit.  You will see that it
-the local master branch points to this commit, not to the new commit
-that we just fetched.
+p. 现在检查“Updated Rakefile”提交。你会注意到本地的master分支指向这个提交，而
+不是我们刚取到的最新的提交。
 
-p. The upshot of this is that the "git fetch" command will fetch new
-commits from the remote repository, but it will not merge these
-commits into the local branches.
+p. 造成这个结果的原因是，“git fetch”命令会获取所有远程库的新提交，但是不会将这些提交合并
+到本地分支。
 
-h2. Check the README
+h2. 检查README
 
-We can demonstrate that the cloned README is unchanged.
+我们可以展示一下复制库里的README，内容并没有变动。
 
 Execute:
 cat README
@@ -2185,16 +2155,16 @@ $ cat README
 This is the Hello World example from the git tutorial.
 EOF
 
-p. See, no changes.
+p. 看，没变吧？
 
 ----------------------------------------------------------------------
-h1. Merging Pulled Changes
+h1. 合并拉到本地的修改
 
-h3. Goals
+h3. 目的
 
-* Learn to get the pulled changes into the current branch and working directory.
+* 学习将拉到的改动合入本地分支和工作目录。
 
-h2. Merge the fetched changes into local master
+h2. 把取到的修改合入本地的master分支。
 
 Execute:
 git merge origin/master
@@ -2204,9 +2174,9 @@ Output:
 =merge
 EOF
 
-h2. Check the README again
+h2. 再次检查README
 
-p. We should see the changes now.
+p. 我们这次应该能看到改动了。
 
 Execute:
 cat README
@@ -2217,46 +2187,41 @@ This is the Hello World example from the git tutorial.
 (changed in original)
 EOF
 
-p. There are the changes.  Even though "git fetch" does not merge the
-changes, we can still manually merge the changes from the remote
-repository.
+p. 就是这些改变。即便“git fetch”没有合并修改，我们也可以手动从远程库里合并。
 
-h2. Up Next
+h2. 下一步
 
-p. Next let's take a look at combining the fetch & merge process into
-a single command.
+p. 下一步我们会看看如何用一个命令完成获取合并两个过程。
 
 ----------------------------------------------------------------------
-h1. Pulling Changes
+h1. 拉改动
 
-h3. Goals
+h3. 目的
 
-* Learn that @git pull@ is equivalent to a @git fetch@ followed by a @git merge@.
+* 学习 @git pull@ 命令，等价于 @git fetch@ 再接着 @git merge@ 。
 
-h3. Discussion
+h3. 讨论
 
-p. We're not going to go through the process of creating another
-change and pulling it again, but we do want you to know that doing:
+p. 我们并不打算再来一遍创建分支并拉取改动的过程，不过你需要知道：
 
 pre(instructions). git pull
 
-is indeed equivalent to the two steps:
+完全等价于下面两步：
 
 pre(instructions). git fetch
 git merge origin/master
 
 ----------------------------------------------------------------------
-h1. Adding a Tracking Branch
+h1. 加入一个跟踪分支
 
-h3. Goals
+h3. 目的
 
-* Learn how to add a local branch that tracks a remote branch.
+* 学习如何创建一个跟踪远程分支的本地分支。
 
-p. The branches starting with remotes/origin are branches from the
-original repo.  Notice that you don't have a branch called greet
-anymore, but it knows that the original repo had a greet branch.
+p. 分支名以remotes/origin开头的分支来自原始库。注意你还没有一个叫greet的分支，
+不过git知道原始库里有greet分支。
 
-h2. Add a local branch that tracks a remote branch.
+h2. 加入一个跟踪远程分支的本地分支。
 
 Execute:
 git branch --track greet origin/greet
@@ -2272,19 +2237,18 @@ Output:
 =log
 EOF
 
-p. We can now see the greet branch in the branch list and in the log.
+p. 我们现在就能在分支列表和日志里看到greet分支了。
 
 ----------------------------------------------------------------------
-h1. Bare Repositories
+h1. 裸库
 
-h3. Goals
+h3. 目的
 
-* Learn how to create bare repositories.
+* 学习如何创建一个裸库。
 
-p. Bare repositories (without working directories) are usually used for
-sharing).
+p. 裸库（没有工作目录的库）常常用来做共享库。
 
-h2. Create a bare repository.
+h2. 创建一个裸库。
 
 Execute:
 cd ..
@@ -2294,47 +2258,43 @@ git clone --bare hello hello.git
 ls hello.git
 =ls
 
-p{color:red}. *NOTE: Now in the work directory*
+p{color:red}. *注意，现在你在工作目录里。*
 
 Output:
 =clone
 =ls
 EOF
 
-p. The convention is that repositories ending in '.git' are bare
-repositories.  We can see that there is no working directory in the
-hello.git repo.  Essentially it is nothing but the .git directory of a
-non-bare repo.
+p. 转换的结果是，以‘.git’结尾的库是裸库。我们可以看到在hello.git库里没有工作区。
+其实裸库离得内容就是非裸库里.git目录的内容。
 
 ----------------------------------------------------------------------
-h1. Adding a Remote Repository
+h1. 加入一个远程库
 
-h3. Goals
+h3. 目的
 
-* Add the bare repository as a remote to our original repository.
+* 将裸库以远程库的形式加入到原始库里。
 
-p. Let's add the hello.git repo to our original repo.
+p. 让我们将hello.git库加入到原始库里。
 
 Execute:
 cd hello
 +pwd
 git remote add shared ../hello.git
 
-p{color:red}. *NOTE: Now in the +hello+ repository.*
+p{color:red}. *注意：现在在 +hello+ 库里。*
 
 ----------------------------------------------------------------------
-h1. Pushing a Change
+h1. 推改动
 
-h3. Goals
+h3. 目的
 
-* Learn how out to push a change to a remote repository.
+* 学习如何把改动推到一个远程库里。
 
-p. Since bare repositories are usually shared on some sort of network
-server, it is usually difficult to cd into the repo and pull changes.
-So we need to push our changes into other repositories.
+p. 由于裸库常常作为共享库存在类似网络中心的地方，很难进到裸库里拉取别的库的修改。所以
+我们需要把我们的改动推到别的远程库里。
 
-p. Let's start by creating a change to be pushed.  Edit the README and
-commit it
+p. 让我们创建一个改动，然后推到别的库里。编辑README并提交
 
 File: README
 This is the Hello World example from the git tutorial.
@@ -2346,41 +2306,39 @@ git checkout master
 git add README
 git commit -m "Added shared comment to readme"
 
-p. Now push the change to the shared repo.
+p. 现在把改动推到共享库里。
 
 Execute:
 git push shared master
 =push
 
-p. _shared_ is the name of the repository receiving the changes we are
-pushing. (Remember, we added it as a remote in the previous lab.)
+p. _shared_ 是我们要把改动推到的库的名字。（还记得么，上一节我们将其作为远程库加了
+进来。）
 
 Output:
 =push
 EOF
 
-p(note). *NOTE:* We had to explicitly name the branch master that was
-receiving the push.  It is possible to set it up automatically, but I
-_never_ remember the commands to do that.  Check out the "Git Remote
-Branch" gem for easy management of remote branches.
+p(note). *注意：* 我们必须明确指出要把改动推到远程库的master分支。这个确实可以通
+过配置自动指定要推到的分支，但是我 _never_ 没记住过配置这个的命令。可以用“Git
+Remote Branch” gem来轻松管理远程分支。
 
 ----------------------------------------------------------------------
-h1. Pulling Shared Changes
+h1. 拉取共享库里的改动
 
-h3. Goals
+h3. 目的
 
-* Learn how to pull changes from a shared repository.
+* 学习如何从共享库里拉取改动。
 
-p. Quick hop over to the clone repository and let's pull down the
-changes just pushed to the shared repo.
+p. 先切换到复制库里，把刚刚推到共享库的改动拉下来。
 
 Execute:
 cd ../cloned_hello
 +pwd
 
-p{color:red}. *NOTE: Now in the _cloned_hello_ repo.*
+p{color:red}. *注意：现在在 _cloned_hello_ 库里。*
 
-p. Continue with...
+p. 继续⋯⋯
 
 Execute:
 git remote add shared ../hello.git
@@ -2389,22 +2347,21 @@ git pull shared master
 cat README
 
 ----------------------------------------------------------------------
-h1. Hosting your Git Repositories
+h1. 托管你的git库
 
-h3. Goals
+h3. 目的
 
-* Learn how to setup git server for sharing repositories.
+* 学习如何为共享库创建一个git服务器。
 
-p. There are many ways to share git repositories over the network.
-Here is a quick and dirty way.
+p. 有很多种方法可以在网络上共享git库。这里介绍一种快速但不那么好的方法。
 
-h2. Start up the git server
+h2. 启动git服务器
 
 execute:
 # (From the work directory)
 git daemon --verbose --export-all --base-path=.
 
-p. Now, in a separate terminal window, go to your work directory
+p. 现在，在另一个终端窗口，进入你的工作目录
 
 execute:
 # (From the work directory)
@@ -2412,47 +2369,45 @@ git clone git://localhost/hello.git network_hello
 cd network_hello
 ls
 
-p. You should see a copy of hello project.
+p. 你应该可以看到一个hello工程的复制。
 
-h2. Pushing to the Git Daemon
+h2. 推给git daemon
 
-p. If you want to push to the git daemon repository, add
-@--enable=receive-pack@ to the git daemon command.  Be careful because
-there is no authentication on this server, anyone could push to your
-repository.
+p. 如果你想往git daemon库里推改动，需要在启动git daemon命令里加入 @--enable=receive-pack@
+。要小心，这个服务器没有身份认证，任何人都可以往里面推改动。
 
 ----------------------------------------------------------------------
-h1. Sharing Repos
+h1. 分享一个库
 
-h3. Goals
+h3. 目的
 
-* Learn to share repos across WIFI.
+* 学习通过wifi分享库。
 
-p. See if your neighbor is running the git daemon.  Exchange IP
-addresses and see if you can pull from each other's repositories.
+p. 看看你的邻居是不是在运行git daemon。更换一下ip地址，看看是不是能从别人的库里拉
+改动。
 
-p(note). *NOTE:* The gitjour gem is really useful in sharing
-ad-hoc repositories.
-
-----------------------------------------------------------------------
-h1. Advanced / Future Topics
-
-p. Here are some topics you might want to research on your own:
-
-* Reverting Committed Changes
-* Cross OS Line Endings
-* Remote Servers
-* Protocols
-* SSH Setup
-* Remote Branch Management
-* Finding Buggy Commits (git bisect)
-* Workflows
-* Non-command line tools (gitx, gitk, magit)
-* Working with GitHub
+p(note). *注意：* gitjour gem在非正式共享库的情况下很有用。
 
 ----------------------------------------------------------------------
-h1. Thank You
+h1. 高级/未来的主题
 
-p. Thank you for trying out the Git Immersion Labs.  Feel free to send
-comments to jim.weirich@gmail.com.
+p. 这里有些主题需要你自己去研究：
+
+* 回滚已经提交的修改
+* 适配不同OS上的行尾
+* 远程服务器
+* 协议
+* 搭建ssh
+* 远程分支管理
+* 找到引入错误的提交（git bisect）
+* 工作流
+* 非命令行工具（gitx，gitk，magit）
+* 和GitHub协同工作
+
+----------------------------------------------------------------------
+h1. 感谢
+
+p. 感谢使用Git Immersion Labs。有建议请发信给jim.weirich@gmail.com。
+
+p. 中文翻译问题请发信给googollee@gmail.com。
 
