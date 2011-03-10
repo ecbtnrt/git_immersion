@@ -1660,22 +1660,12 @@ EOF
 如果你打开lib/hello.rb，你将看到：
 
 file: lib/hello.rb
-<<<<<<< HEAD
-require 'greeter'
-
-# Default is World
-name = ARGV.first || "World"
-
-greeter = Greeter.new(name)
-puts greeter.greet
-=======
 # Default is World
 
 puts "What's your name"
 my_name = gets.strip
 
 puts "Hello, #{my_name}!"
->>>>>>> master
 EOF
 
 p. 前一个区域是当前分支（greet）最新版本的内容。第二个区域是master分支版本的内容。
