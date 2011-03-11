@@ -1,15 +1,15 @@
 # coding: utf-8
 
-$tag = { :execute => "执行：",
-         :file => "文件：",
-         :output => "输出：",
-}
-
 module Labs
   module_function
 
   HTML_DIR = 'git_tutorial/html'
   WORK_DIR = 'git_tutorial/work'
+
+  TAG = { :execute => "执行：",
+          :file => "文件：",
+          :output => "输出：",
+  }
 
   class Lab
     attr_reader :name, :number, :lines
@@ -76,15 +76,15 @@ module Labs
           gathered_line = line.strip
         elsif line =~ /^Execute:$/i
           mode = :gather1
-          labs[lab_index] << "h4. #{$tag[:execute]}\n\n"
+          labs[lab_index] << "h4. #{TAG[:execute]}\n\n"
           gathered_line = "pre(instructions)."
         elsif line =~ /^File:\s+(\S+)$/i
           file_name = $1
-          labs[lab_index] << "h4. #{$tag[:file]} _#{file_name}_\n\n"
+          labs[lab_index] << "h4. #{TAG[:file]} _#{file_name}_\n\n"
           gathered_line = "<pre class=\"file\">"
           mode = :file
         elsif line =~ /^Output:\s*$/
-          labs[lab_index] << "h4. #{$tag[:output]}\n\n"
+          labs[lab_index] << "h4. #{TAG[:output]}\n\n"
           gathered_line = "<pre class=\"sample\">"
           mode = :file
         elsif line =~ /^Set: +\w+=.*$/
