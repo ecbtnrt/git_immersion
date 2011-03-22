@@ -10,7 +10,7 @@ h2. 设置名字和信箱
 p. 如果你之前从没有用过git，那你先需要做一些配置。运行下面的命令，把你
 的名字和信箱告诉git。如果你的git已经配置好了，可以直接跳到这节的末尾。
 
-执行：
+execute:
 git config --global user.name "你的名字"
 git config --global user.email "your_email@whatever.com"
 
