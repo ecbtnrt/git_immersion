@@ -18,11 +18,12 @@ header {
   position       : relative;
   width          : 688px;
   height         : 179px;
-  margin         : 45px 0;
+  margin         : 45px 0 25px 0;
   font-size      : 14px;
   font-style     : italic;
   text-transform : uppercase;
-  background     : url(heading.png) no-repeat 100% 0; }
+  background     : url(heading.png) no-repeat 100% 0;
+  z-index        : 2; }
 
 header a,
 header span {
@@ -78,6 +79,8 @@ header #bookmark {
   cursor      : pointer;
   background  : url(bookmarks.png) no-repeat -38px 0; }
 
+header #bookmark.active { background-position: -69px 0; }
+
 
 
 /* Lab Title
@@ -126,6 +129,8 @@ h1.lab_title em {
 
 /* Main Content
 ------------------------------------------------------------ */
+
+#main_content { padding-top: 20px; }
 
 #main_content h2 {
   position      : relative;
@@ -209,8 +214,8 @@ div.instructions pre {
 #main_content pre.file {
   display       : block;
   margin-bottom : 1em;
-  border-top    : 1px solid #b6b6b6;
-  border-bottom : 1px solid #b6b6b6;
+  border-top    : 1px solid #ddd;
+  border-bottom : 1px solid #ddd;
   padding       : 10px 0 10px 85px;
   font          : 13px courier, monospace;
   background    : #fff; }
@@ -337,6 +342,8 @@ div.instructions pre {
   background : url(bookmarks.png) no-repeat;
   z-index    : 2; }
 
+#index #show_bookmarks.active { background-position: -19px 0; }
+
 #index #no_bookmarks {
   display     : none;
   position    : absolute;
@@ -406,6 +413,41 @@ div.instructions pre {
 
 
 
+
+/* Pager
+------------------------------------------------------------ */
+
+#pager ul {
+  list-style-type : none;
+  position        : fixed;
+  top             : 15px;
+  right           : 15px;
+  width           : 124px;
+  height          : 44px;
+  background      : url(pager.png);
+  z-index         : 3; }
+
+#pager li a {
+  position    : absolute;
+  top         : 0;
+  left        : 0;
+  bottom      : 0;
+  width       : 32px;
+  text-indent : -999em;
+}
+
+#pager .next a {
+  left  : auto;
+  right : 0;
+}
+
+#pager .index_button a {
+  left  : 40px;
+  width : 44px;
+}
+
+
+
 /* Footer
 ------------------------------------------------------------ */
 
@@ -472,3 +514,5 @@ footer a#edgecase_link_small {
   height      : 53px;
   text-indent : -999em;
   background  : url(edgecase_logo_small.png); }
+
+
