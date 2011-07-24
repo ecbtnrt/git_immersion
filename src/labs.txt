@@ -520,7 +520,7 @@ p. 这些配置已经覆盖了签出，提交和状态显示命令。而之前�
 
 p. 接下来试着添加个新命令。
 
-h2. 在 @.gitconfig@ 里定义的别名 @hist@ 
+h2. 在 @.gitconfig@ 里定义的别名 @hist@
 
 p. 这个教程里大部分时候我会继续使用完整的命令。唯一的例外是 @hist@， 我会用这个别名
 来代替所有需要查看git log的情况。如果你想继续的话，确认你的 @.gitconfig@ 文件里有
@@ -1549,7 +1549,7 @@ Output:
 =log
 EOF
 
-p. 这是我们第一次有机会看看 @git hist@ 命令里的 @--graph@ 选项有什么效果。给 
+p. 这是我们第一次有机会看看 @git hist@ 命令里的 @--graph@ 选项有什么效果。给
 @git log@ 加入 @--graph@ 选项，会画出由ASCII字符组成的提交树。我们可以看到两
 个分支（greet和master），而且master分支是当前的HEAD。两个分支源自同一个分支，
 其名字是“Added a Rakefile”。
