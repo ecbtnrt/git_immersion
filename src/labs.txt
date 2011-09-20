@@ -1516,16 +1516,20 @@ h3. 目的
 
 p. 当你修改greet分支时，有人决定要更新主分支，加入一个README文件。
 
+h2. 切换到master分支
+
+Execute:
+git checkout master
+
 h2. 更新README文件。
 
 File: README
 This is the Hello World example from the git tutorial.
 EOF
 
-h2. 将README这个改动提交到主分支。
+h2. 将README这个改动提交到master分支。
 
 Execute:
-git checkout master
 git add README
 git commit -m "Added README"
 
